@@ -1,0 +1,59 @@
+<mat-sidenav-container (backdropClick)="close('backdrop')" fullscreen>
+
+  <mat-sidenav #sidenav opened="false" mode="over" class="pt-4 pl-5 pr-5">
+
+    <img src="../assets/images/logo.png" class="mt-3 mb-3 d-block">
+
+    <mat-list *ngIf="auth.userType === 'boss'">
+      <mat-list-item>
+        <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+      </mat-list-item>
+      <mat-list-item>
+        <a routerLink="/partner" routerLinkActive="active">Partners</a>
+      </mat-list-item>
+      <mat-list-item>
+        <a routerLink="/customers" routerLinkActive="active">Customers</a>
+      </mat-list-item>
+      <mat-list-item>
+        <a routerLink="/finance-core" routerLinkActive="active"> Financials </a>
+      </mat-list-item>
+      <mat-list-item>
+        <a routerLink="/settings" routerLinkActive="active"> Settings </a>
+      </mat-list-item>
+    </mat-list>
+
+    <mat-list *ngIf="auth.userType === 'partner'">
+      <mat-list-item routerLink="/menu-manager"> Menu Manager  </mat-list-item>
+      <mat-list-item routerLink="/settings"> Settings </mat-list-item>
+    </mat-list>
+
+  </mat-sidenav>
+  <mat-toolbar class="mat-elevation-z4 mb-4" role="header" color="primary" *ngIf="auth.isLoggedIn">
+    <mat-toolbar-row>
+      <button mat-button disableRipple (click)="sidenav.toggle()" class="sidenav-toggle-button">
+        <mat-icon aria-label="Menu" class="ion-navicon menu-icon"></mat-icon>
+      </button>
+      <span>{{ common.appName }} - {{ common.title }}</span>
+      <span class="spacer"></span>
+      <button mat-icon-button class="ion-ios-bell"></button>
+      <button mat-icon-button class="ion-android-more-vertical" [matMenuTriggerFor]="menu"></button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item *ngIf="auth.userType === 'partner'">
+          <mat-icon class="ion-gear-b"></mat-icon>
+          <span>Edit Details</span>
+        </button>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon class="ion-log-out"></mat-icon>
+          <span>Logout</span>
+        </button>
+        <!-- <button mat-menu-item>
+          <mat-icon>notifications_off</mat-icon>
+          <span>Disable alerts</span>
+        </button> -->
+      </mat-menu>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <router-outlet></router-outlet>
+
+</mat-sidenav-container>

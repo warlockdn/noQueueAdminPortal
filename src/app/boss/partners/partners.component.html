@@ -1,0 +1,18 @@
+<div class="container-fluid">
+  <div class="row">
+    
+    <div class="sidemenu col col-md-2 col-sm-12">
+      <ul class="menu list-unstyled mb-4">
+        <li><a [routerLink]="['all']" routerLinkActive="active">All</a></li>
+        <li><a [routerLink]="['pending']" routerLinkActive="active">Pending</a></li>
+        <li><a [routerLink]="['active']" routerLinkActive="active">Active</a></li>
+      </ul>
+      <button mat-raised-button class="mat-elevation-z3 shadow" block color="green" (click)="addPartner()">Add Partner</button>
+    </div>
+
+    <div class="table-container col col-md-10 col-sm-12">
+      <router-outlet></router-outlet>
+    </div>
+
+  </div>
+</div>

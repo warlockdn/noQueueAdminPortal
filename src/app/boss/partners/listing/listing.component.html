@@ -1,0 +1,68 @@
+<h2 class="title mb-4">{{ listingType }} Listing</h2>
+
+<div class="datatable">
+  <div class="data-header">
+
+  </div>
+  <div class="data-body">
+    <mat-table #table [dataSource]="dataSource">      
+      <ng-container matColumnDef="partnerid">
+        <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.partnerid}} </mat-cell>
+      </ng-container>
+      
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container>
+      
+      <ng-container matColumnDef="location">
+        <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.location}} </mat-cell>
+      </ng-container>
+      
+      <ng-container matColumnDef="state">
+        <mat-header-cell *matHeaderCellDef> State </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.state}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="revenue">
+        <mat-header-cell *matHeaderCellDef> Total Revenue </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.revenue}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="commissions">
+        <mat-header-cell *matHeaderCellDef> Commissions </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.commissions}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="isActive">
+        <mat-header-cell *matHeaderCellDef> Is Active </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.isActive}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef class=""> Actions </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon class="ion-android-more-horizontal"></mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="editPartner(element.partnerid)">
+              <mat-icon class="ion-edit"></mat-icon>
+              <span>Edit</span>
+            </button>            
+          </mat-menu>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+
+  <div class="data-footer">
+    <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true">
+    </mat-paginator>
+  </div>
+</div>

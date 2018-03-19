@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Add Category</h1>
+<div mat-dialog-content>
+  <p>Enter a name for your new category and Save.</p>
+  <mat-form-field>
+    <input matInput placeholder="Category Name">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">CANCEL</button>
+  <button mat-button cdkFocusInitial>SUBMIT</button>
+</div>

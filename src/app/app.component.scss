@@ -1,0 +1,29 @@
+app-root:host {
+    .spacer {
+        flex: 1 1 auto;
+    }
+    button.mat-icon-button {
+        font-size: 25px;
+    }
+    button.sidenav-toggle-button {
+        min-width: 60px;
+        padding: 0 15px 0 0;
+    }
+    button.sidenav-toggle-button:focus {
+        outline: 0;
+    }
+    mat-list-item {
+        a {
+            outline: 0;
+            text-decoration: none;
+            color: inherit;
+        }
+        a.active {
+            font-weight: 600;
+        }
+    }
+    .menu-icon {
+        height: 28px;
+        font-size: 28px;
+    }
+}

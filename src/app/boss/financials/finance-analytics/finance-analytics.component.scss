@@ -1,0 +1,28 @@
+:host {
+ 
+    .card {
+        background-color: #fff;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+        padding: 15px 25px;
+        margin: 10px 30px 10px 0;
+        border: 0;
+        width: 170px;
+        max-width: 170px;
+        i {
+            color: #3F51B5;
+            font-size: 18px;
+        }
+        h5.card-title {
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            margin-top: 5px;
+        }
+        .figure {
+            font-size: 40px;
+            font-weight: 600;
+        }
+    }
+    
+}

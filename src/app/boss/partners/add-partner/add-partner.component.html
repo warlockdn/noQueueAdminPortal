@@ -1,0 +1,139 @@
+<h2 class="title mb-4 d-inline-block">Add New Partner</h2>
+
+<div class="float-right" *ngIf="actionButtons">
+  <button mat-raised-button class="mat-elevation-z1 shadow mr-2">Cancel</button>
+  <button mat-raised-button class="mat-elevation-z1 shadow" color="green" (click)="save()">Save</button>
+</div>
+<div class="clearfix"></div>
+
+<div class="row" *ngIf="isAdding">
+  <div class="col col-md-4">
+    <div class="box-card">
+      <h3 class="title">Basic Details</h3>
+
+      <mat-form-field>
+        <input matInput placeholder="Restaurant Name">
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput name="" cols="30" rows="3" placeholder="Address"></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="City">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="State">
+      </mat-form-field>
+
+      <img src="http://placehold.it/300x200" />
+    </div>
+  </div>
+  <div class="col col-md-4">
+    <div class="box-card">
+      <h3 class="title">Characteristics</h3>
+
+      <mat-form-field>
+        <mat-select placeholder="Select Type">
+          <mat-option value="Quick Service">Quick Service</mat-option>
+          <mat-option value="Quick Service">Restaurant</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <label class="d-block">SERVICES</label>
+      <mat-checkbox>Breakfast</mat-checkbox>
+      <mat-checkbox>Lunch</mat-checkbox>
+      <mat-checkbox>Dinner</mat-checkbox>
+      <mat-checkbox>Cafe</mat-checkbox>
+      <mat-checkbox>Nightlife</mat-checkbox>
+
+      <label class="d-block">SEATING</label>
+      <mat-radio-group>
+        <mat-radio-button value="1">Seating Available</mat-radio-button>
+        <mat-radio-button value="2">Seating Not Available</mat-radio-button>
+      </mat-radio-group>
+
+      <label class="d-block">Cuisine</label>
+      <mat-form-field>
+        <mat-select placeholder="Select Cuisine" multiple>
+          <mat-option *ngFor="let cuisine of cuisines">{{cuisine}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <label class="d-block">Timings</label>
+      <mat-checkbox>Monday</mat-checkbox>
+      <mat-checkbox>Tuesday</mat-checkbox>
+      <mat-checkbox>Wednesday</mat-checkbox>
+      <mat-checkbox>Thursday</mat-checkbox>
+      <mat-checkbox>Friday</mat-checkbox>
+      <mat-checkbox>Saturday</mat-checkbox>
+      <mat-checkbox>Sunday</mat-checkbox>
+
+      <div class="row mt-3">
+        <div class="col col-md-6">
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker1" placeholder="Open Time">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col col-md-6">
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker2" placeholder="Closing Time">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="col col-md-4">
+    <div class="box-card">
+      <h3 class="title">Bank Details</h3>
+
+      <mat-form-field>
+        <input matInput placeholder="Acc Name">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Acc Number" type="number">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Bank Name">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Branch Name">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="IFSC Code">
+      </mat-form-field>
+    </div>
+
+  </div>
+</div>
+
+<div class="row" *ngIf="!isAdding">
+  <div class="col col-12 col-md-12 align-self-center text-center">
+    <div class="success-box">
+      <div class="success-icon ion-ios-checkmark"></div>
+      <h3>Partner Added Successfully</h3>
+      <p>
+        <strong>{{ res.name }}</strong> was added as Partner. Please find below login credentials which has also been mailed to the partner's email address.
+        <br>
+        <span>
+          <strong>Note</strong>: This info will be show only once</span>
+      </p>
+      <div class="info-box mt-4">
+        <mat-form-field class="w-100">
+          <input matInput placeholder="Username" value="res.username" readonly>
+        </mat-form-field>
+        <mat-form-field class="w-100">
+          <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password" value="{{res.password}}" readonly>
+          <mat-icon matSuffix (click)="hide = !hide" [class]="hide ? 'ion-eye-disabled' : 'ion-eye'"></mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="d-flex mt-3">
+          <button mat-raised-button class="mat-elevation-z1 shadow mr-2" color="green" (click)="addNew()" block>Add New</button>
+          <button mat-raised-button class="mat-elevation-z1 shadow ml-2" color="primary" (click)="addNew()" block>Manage Menu</button>
+      </div>
+    </div>
+  </div>
+</div>

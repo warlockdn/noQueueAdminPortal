@@ -1,0 +1,33 @@
+app-edit-partner:host {
+    .box-card {
+        background: #fff;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+        padding: 30px 30px 35px;
+        h3.title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        mat-form-field {
+            width: 100%;
+        }
+        label {
+            margin-top: 15px;
+            color: #a7a7a7;
+            text-transform: uppercase;
+        }
+        mat-checkbox {
+            margin-right: 10px;
+            /deep/ .mat-checkbox-layout {
+                .mat-checkbox-inner-container {
+                    height: 17px;
+                    width: 17px;
+                }
+            }
+        }
+        mat-radio-button {
+            margin-right: 10px;
+        }        
+    }
+}

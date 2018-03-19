@@ -1,0 +1,58 @@
+<h2 mat-dialog-title>Transaction - <strong>{{ data.transactionID }}</strong></h2>
+
+<mat-dialog-content>
+
+  <div class="title">Order Details</div>
+  <div class="row">
+    <div class="col col-4">Customers</div>
+    <div class="col col-8 font-weight-bold">{{data.orderID}}</div>
+  </div>
+  <div class="row">
+    <div class="col col-4">Order ID</div>
+    <div class="col col-8 font-weight-bold"></div>
+  </div>
+  <div class="row">
+    <div class="col col-4">Order Time</div>
+    <div class="col col-8 font-weight-bold">12:12:26 Thu Feb 08 2018</div>
+  </div>
+  
+  <div class="title">Order Summary</div>
+  <div class="row">
+    <div class="col col-7">Chicken Burger</div>
+    <div class="col col-2 quantity">1</div>
+    <div class="col col-3 text-right">320</div>
+  </div>
+  <div class="row">
+    <div class="col col-7">Crispy Fries</div>
+    <div class="col col-2 quantity">2</div>
+    <div class="col col-3 text-right">150</div>
+  </div>
+  <div class="row">
+    <div class="col col-7">Veg Maharaja Burger</div>
+    <div class="col col-2 quantity">1</div>
+    <div class="col col-3 text-right">120</div>
+  </div>
+  
+  <div class="row mt-2">
+    <div class="col col-8">Item Total</div>
+    <div class="col col-4 font-weight-bold text-right">Rs. {{data.total}}</div>
+  </div>
+  <div class="row">
+    <div class="col col-8">Tax</div>
+    <div class="col col-4 font-weight-bold text-right">Rs. 45</div>
+  </div>
+  <div class="row">
+    <div class="col col-8 font-weight-bold">Total</div>
+    <div class="col col-4 text-right font-weight-bold">Rs. 690</div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col col-8">Restaurant Commission %</div>
+    <div class="col col-4 text-right">5 %</div>
+  </div>
+  <div class="row">
+    <div class="col col-8">Received Commission</div>
+    <div class="col col-4 text-right">Rs. 45</div>
+  </div>
+
+</mat-dialog-content>
