@@ -61,4 +61,29 @@
         bottom: 20px; 
         width: 22.5vw;
     }
+
+    .main-section{
+
+    }
+
+    empty-selection {
+        /deep/ .empty {
+            height: calc(100vh - 87px);
+            background-color: #FAFAFA;
+            margin: -25px -15px 25px -15px;
+            user-select: none;
+            mat-icon {
+                font-size: 7rem;
+                color: #c2c2c2;
+                margin-bottom: 2rem;
+                width: 110px;
+                height: 110px;
+            }
+            p {
+                font-size: 1.2rem;
+                color: #757575;
+            }
+        }
+    }
+
 }

@@ -23,36 +23,34 @@ import {
  } from '@angular/material'
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { AdminDashboardComponent } from './boss/admin-dashboard/admin-dashboard.component';
+import { LoginComponent } from './pages/login/login.component';
+import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 
-import { PartnersComponent } from './boss/partners/partners.component';
-import { PartnerListingComponent } from './boss/partners/listing/listing.component';
-import { AddPartnerComponent } from './boss/partners/add-partner/add-partner.component';
-import { EditPartnerComponent } from './boss/partners/edit-partner/edit-partner.component';
-import { ManageMenuComponent, DialogNewCategory } from './manage-menu/manage-menu.component';
+import { PartnersComponent } from './pages/partners/partners.component';
+import { PartnerListingComponent } from './pages/partners/listing/listing.component';
+import { AddPartnerComponent } from './pages/partners/add-partner/add-partner.component';
+import { EditPartnerComponent } from './pages/partners/edit-partner/edit-partner.component';
+import { ManageMenuComponent, DialogNewCategory, DeleteCategory, NoCategorySelected } from './pages/manage-menu/manage-menu.component';
 
-import { CustomersComponent } from './boss/customers/customers.component';
+import { CustomersComponent } from './pages/customers/customers.component';
 
-import { FinancialsComponent } from './boss/financials/financials.component';
-import { FinanceAnalyticsComponent } from './boss/financials/finance-analytics/finance-analytics.component';
-import { TransactionsComponent, ViewTransaction } from './boss/financials/transactions/transactions.component';
-
-import { PartnerDashboardComponent } from './partner/partner-dashboard/partner-dashboard.component';
-import { PartnerFinancialsComponent } from './partner/partner-financials/partner-financials.component';
+import { FinancialsComponent } from './pages/financials/financials.component';
+import { FinanceAnalyticsComponent } from './pages/financials/finance-analytics/finance-analytics.component';
+import { TransactionsComponent, ViewTransaction } from './pages/financials/transactions/transactions.component';
+import { ManageCategoryComponent } from './pages/manage-menu/manage-category/manage-category.component';
 
 // 404
-import { NotFound404Component } from './not-found-404/not-found-404.component';
+import { NotFound404Component } from './pages/not-found-404/not-found-404.component';
 
 import { AuthService } from './service/auth/auth.service';
 import { CommonService } from './service/common/common.service';
+import { MenuManagerService } from './service/menu-manager/menu-manager.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     AdminDashboardComponent,
-    PartnerDashboardComponent,
     NotFound404Component,
     PartnersComponent,
     CustomersComponent,
@@ -62,12 +60,14 @@ import { CommonService } from './service/common/common.service';
     EditPartnerComponent,
     ManageMenuComponent,
     DialogNewCategory,
+    DeleteCategory,
+    NoCategorySelected,
     FinanceAnalyticsComponent,
     TransactionsComponent,
     ViewTransaction,
-    PartnerFinancialsComponent
+    ManageCategoryComponent,
   ],
-  entryComponents: [DialogNewCategory, ViewTransaction],
+  entryComponents: [DialogNewCategory, ViewTransaction, DeleteCategory],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -90,7 +90,8 @@ import { CommonService } from './service/common/common.service';
   ],
   providers: [
     AuthService,
-    CommonService
+    CommonService,
+    MenuManagerService
   ],
   bootstrap: [AppComponent]
 })

@@ -4,7 +4,7 @@
 
     <img src="../assets/images/logo.png" class="mt-3 mb-3 d-block">
 
-    <mat-list *ngIf="auth.userType === 'boss'">
+    <mat-list>
       <mat-list-item>
         <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
       </mat-list-item>
@@ -20,11 +20,6 @@
       <mat-list-item>
         <a routerLink="/settings" routerLinkActive="active"> Settings </a>
       </mat-list-item>
-    </mat-list>
-
-    <mat-list *ngIf="auth.userType === 'partner'">
-      <mat-list-item routerLink="/menu-manager"> Menu Manager  </mat-list-item>
-      <mat-list-item routerLink="/settings"> Settings </mat-list-item>
     </mat-list>
 
   </mat-sidenav>

@@ -1,27 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './pages/login/login.component';
 
 // Boss
-import { AdminDashboardComponent } from './boss/admin-dashboard/admin-dashboard.component';
+import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 
-import { PartnersComponent } from './boss/partners/partners.component';
-import { PartnerListingComponent } from './boss/partners/listing/listing.component';
-import { AddPartnerComponent } from './boss/partners/add-partner/add-partner.component';
-import { EditPartnerComponent } from './boss/partners/edit-partner/edit-partner.component';
-import { ManageMenuComponent } from './manage-menu/manage-menu.component';
+import { PartnersComponent } from './pages/partners/partners.component';
+import { PartnerListingComponent } from './pages/partners/listing/listing.component';
+import { AddPartnerComponent } from './pages/partners/add-partner/add-partner.component';
+import { EditPartnerComponent } from './pages/partners/edit-partner/edit-partner.component';
+import { ManageMenuComponent } from './pages/manage-menu/manage-menu.component';
 
-import { CustomersComponent } from './boss/customers/customers.component';
+import { CustomersComponent } from './pages/customers/customers.component';
 
-import { FinancialsComponent } from './boss/financials/financials.component';
-import { FinanceAnalyticsComponent } from './boss/financials/finance-analytics/finance-analytics.component';
-import { TransactionsComponent } from './boss/financials/transactions/transactions.component';
+import { FinancialsComponent } from './pages/financials/financials.component';
+import { FinanceAnalyticsComponent } from './pages/financials/finance-analytics/finance-analytics.component';
+import { TransactionsComponent } from './pages/financials/transactions/transactions.component';
 
-// Partner
-import { PartnerDashboardComponent } from './partner/partner-dashboard/partner-dashboard.component';
-
-import { NotFound404Component } from './not-found-404/not-found-404.component';
+import { NotFound404Component } from './pages/not-found-404/not-found-404.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },

@@ -1,0 +1,68 @@
+<div class="container-fluid">
+  <div class="row">
+
+    <!-- Sidemenu - Categories -->
+    <div class="col col-3 col-sm-3 border-right no-scroll">
+      
+      <div class="float-right">
+          <button mat-button class="mr-2">Save Draft</button>
+          <button mat-raised-button color="dark-green" no-shadow>
+            <i class="ion-ios-checkmark-empty"></i> Publish
+          </button>
+      </div>
+      <div class="clearfix"></div>
+
+      <h3 class="title">Promotional</h3>
+      <ul class="category font-weight-bold">
+        <li>
+          Recommended
+          <div class="float-right">
+            <button mat-icon-button>
+              <mat-icon class="ion-edit" (click)="openDialog('edit')"></mat-icon>
+            </button>
+          </div>
+        </li>
+        <li>
+          Popular
+          <div class="float-right">
+            <button mat-icon-button>
+              <mat-icon class="ion-edit" (click)="openDialog('edit')"></mat-icon>
+            </button>
+          </div>
+        </li>
+      </ul>
+
+      <h3 class="title">Food Menu</h3>
+      <ul class="category mb-5">
+
+        <li *ngFor="let item of menu" (click)="loadCategory(item)">
+          {{ item.name }}
+          <div class="float-right">
+            <button mat-icon-button>
+              <mat-icon class="ion-edit" (click)="openDialog('edit', item)"></mat-icon>
+            </button>
+            <button mat-icon-button>
+              <mat-icon class="ion-trash-b" (click)="deleteCategory(item)"></mat-icon>
+            </button>
+          </div>
+        </li>
+
+      </ul>
+
+      <button mat-raised-button class="sticky-bottom" color="primary" (click)="openDialog('new')" block>CREATE CATEGORY</button>
+
+    </div>
+
+    <!-- Main Playing Body -->
+    <div class="col col-9 col-sm-9 main-section no-scroll">
+
+      <!-- Empty Section -->
+      <empty-selection *ngIf="isCategorySelected == true"></empty-selection>
+
+      <!-- Category Menu Loaded -->
+      <manage-category *ngIf="isCategorySelected == false"></manage-category>
+
+    </div>
+
+  </div>
+</div>
