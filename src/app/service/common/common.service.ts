@@ -6,6 +6,7 @@ export class CommonService {
   readonly appName: string = 'adminWeb';
   public title: string = 'Dashboard';
   public isOpen: boolean = false;
+  public currency: String = 'Rs. ';
   
   constructor(private auth: AuthService) { 
     this.isOpen = false;

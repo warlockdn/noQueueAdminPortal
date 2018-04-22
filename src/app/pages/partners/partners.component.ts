@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { CommonService } from './../../service/common/common.service';
+import { PartnerService } from '../../service/partner/partner.service';
 
 @Component({
   selector: 'app-partners',
@@ -10,7 +11,7 @@ import { CommonService } from './../../service/common/common.service';
 })
 export class PartnersComponent implements OnInit {
 
-  constructor(private router: Router, private common: CommonService) { 
+  constructor(private router: Router, private common: CommonService, private partner: PartnerService) { 
     this.common.title = 'Partners';
   }
 
@@ -20,5 +21,7 @@ export class PartnersComponent implements OnInit {
   addPartner() {
     this.router.navigate(['partner/add'])
   }
+
+
 
 }

@@ -1,14 +1,14 @@
-<form class="example-form" novalidate>
+<form #loginForm="ngForm" id="loginFormId" [class.error]="error === true" (ngSubmit)="login(loginForm)" novalidate>
   
   <img src="./assets/images/logo.png" alt="" class="mb-5 d-block">
 
   <mat-form-field class="mb-3">
-    <input matInput placeholder="Partner ID">
+    <input matInput placeholder="Partner ID" name="username" [(ngModel)]="user.username" #username="ngModel" required>
   </mat-form-field>
 
   <mat-form-field class="mb-3">
-    <input matInput placeholder="Password" type="password">
+    <input matInput placeholder="Password" type="password" name="password" [(ngModel)]="user.password" #password="ngModel" required>
   </mat-form-field>
 
-  <button mat-raised-button color="primary" type="button" block (click)="login()">Login</button>
+  <button mat-raised-button color="primary" block>Login</button>
 </form>

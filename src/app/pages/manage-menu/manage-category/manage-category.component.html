@@ -1,3 +1,47 @@
-<p>
-  manage-category works!
-</p>
+<h2 class="title">
+    {{ menuService.categorySelected.name }}   
+    <span *ngIf="isAdding">
+      <i class="ml-2 mr-2 ion-ios-arrow-forward"></i>  Your Dish Name
+    </span>
+  </h2>
+<div class="content">
+
+  <div class="viewing" *ngIf="!isAdding">
+    <div class="add-item mt-5" (click)="addNewItem()">
+      <p class="font-weight-bold text-center mt-4 mb-4">Click on the Plus Icon
+        <br/> to add a new menu item</p>
+      <div class="add-icon text-center">
+        <mat-icon class="ion-ios-plus-empty"></mat-icon>
+      </div>
+    </div>
+  
+    <ul class="menu-list mt-4 mb-5 list-unstyled">
+      <li [ngClass]="(item.isNonVeg==false)?'veg':'nonveg'" *ngFor="let item of menuService.categorySelected.items">
+        <i></i>
+        {{ item.name }}
+        <div class="float-right action">
+          <div class="d-inline-block price">
+            <span>{{ common.currency }}</span> 60</div>
+          <button mat-icon-button>
+            <mat-icon class="ion-ios-copy"></mat-icon>
+          </button>
+          <button mat-icon-button (click)="editProduct(item)">
+            <mat-icon class="ion-edit"></mat-icon>
+          </button>
+          <button mat-icon-button (click)="deleteProduct(item)">
+            <mat-icon class="ion-trash-b"></mat-icon>
+          </button>
+        </div>
+      </li>
+    </ul>
+  
+    <div class="add-item" (click)="addNewItem()">
+      <div class="add-icon text-center">
+        <mat-icon class="ion-ios-plus-empty"></mat-icon>
+      </div>
+    </div>
+  </div>
+
+  <manage-item *ngIf="isAdding"></manage-item>
+
+</div>

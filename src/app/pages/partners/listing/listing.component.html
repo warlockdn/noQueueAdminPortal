@@ -8,7 +8,7 @@
     <mat-table #table [dataSource]="dataSource">      
       <ng-container matColumnDef="partnerid">
         <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.partnerid}} </mat-cell>
+        <mat-cell *matCellDef="let element"> {{element.partnerID}} </mat-cell>
       </ng-container>
       
       <ng-container matColumnDef="name">
@@ -17,8 +17,8 @@
       </ng-container>
       
       <ng-container matColumnDef="location">
-        <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.location}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef> City </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.city}} </mat-cell>
       </ng-container>
       
       <ng-container matColumnDef="state">
@@ -38,7 +38,7 @@
 
       <ng-container matColumnDef="isActive">
         <mat-header-cell *matHeaderCellDef> Is Active </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.isActive}} </mat-cell>
+        <mat-cell *matCellDef="let element"> {{element.active}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="actions">
@@ -48,10 +48,14 @@
             <mat-icon class="ion-android-more-horizontal"></mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="editPartner(element.partnerid)">
+            <button mat-menu-item (click)="editPartner(element.partnerID)">
               <mat-icon class="ion-edit"></mat-icon>
               <span>Edit</span>
-            </button>            
+            </button>
+            <button mat-menu-item (click)="manageMenu(element.partnerID)">
+              <mat-icon class="ion-android-restaurant"></mat-icon>
+              <span>Menu</span>
+            </button>
           </mat-menu>
         </mat-cell>
       </ng-container>

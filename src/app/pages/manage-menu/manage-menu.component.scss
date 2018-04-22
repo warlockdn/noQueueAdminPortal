@@ -68,9 +68,9 @@
 
     empty-selection {
         /deep/ .empty {
-            height: calc(100vh - 87px);
+            height: calc(100vh - 62px);
             background-color: #FAFAFA;
-            margin: -25px -15px 25px -15px;
+            margin: -25px -15px 0 -15px;
             user-select: none;
             mat-icon {
                 font-size: 7rem;

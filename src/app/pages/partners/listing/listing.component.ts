@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 
+import { PartnerService } from '../../../service/partner/partner.service';
+
 @Component({
   selector: 'app-listing',
   templateUrl: './listing.component.html',
@@ -12,37 +14,37 @@ export class PartnerListingComponent implements OnInit {
   listingType: string = 'All';
 
   displayedColumns = ['partnerid', 'name', 'location', 'state', 'revenue', 'commissions', 'isActive', 'actions'];
-  dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
+  dataSource: any;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private router: Router) {  }
+  constructor(private router: Router, private partner: PartnerService) {  }
 
   ngOnInit() {
+    this.partner.getAllPartners().then((result) => {
+      this.dataSource = new MatTableDataSource<Element>(result.data);
+    }).catch((err) => {
+      console.log(err);
+    })    
   }
 
   editPartner(partnerID) {
     this.router.navigate(['partner', 'edit', partnerID]);
   }
 
+  manageMenu(partnerID) {
+    this.router.navigate(['manage-menu', partnerID]);
+  }
+
 }
 
 export interface Element {
-  partnerid: number;
+  partnerID: number;
   name: string;
-  location: string;
+  city: string;
   state: string;
   revenue: number,
   commissions: number,
-  isActive: string,  
+  active: string,
 }
-
-const ELEMENT_DATA: Element[] = [
-  { partnerid: 1220022125, name: 'Pra Pra Prank', location: 'Gurgaon', state: 'Haryana', revenue: 222058, commissions: 12000, isActive: 'Yes' },
-  { partnerid: 1220022125, name: 'The Runway Project', location: 'Gurgaon', state: 'Haryana', revenue: 222058, commissions: 12000, isActive: 'Yes' },
-  { partnerid: 1220022125, name: 'BoHo by Nagai', location: 'Gurgaon', state: 'Haryana', revenue: 222058, commissions: 12000, isActive: 'Yes' },
-  { partnerid: 1220022125, name: 'Pra Pra Prank', location: 'Gurgaon', state: 'Haryana', revenue: 222058, commissions: 12000, isActive: 'Yes' },
-  { partnerid: 1220022125, name: 'The Runway Project', location: 'Gurgaon', state: 'Haryana', revenue: 222058, commissions: 12000, isActive: 'Yes' },
-  { partnerid: 1220022125, name: 'BoHo by Nagai', location: 'Gurgaon', state: 'Haryana', revenue: 222058, commissions: 12000, isActive: 'Yes' },
-];
 
 

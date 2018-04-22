@@ -1,0 +1,123 @@
+:host {
+
+    .content {
+        width: 55vw;
+        max-width: 750px;
+        margin: 0 auto;
+    }
+    h3.subtitle { 
+        font-size: 1rem;
+        color: #3F51B5;
+        font-weight: 700;
+        margin: 1rem 0;
+    }
+    .full-width {
+        width: 100%;
+    }    
+    .thumbnail {
+        cursor: pointer;
+        background-color: #efefef;
+        input[type=file] {
+            visibility: hidden;
+            width: 1px;
+            height: 1px;
+        }
+    }
+    .thumbnail:before {
+        content: "\f40b";
+        display: inline-block;
+        font-family: "Ionicons";
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        text-rendering: auto;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        position: absolute;
+        font-size: 6rem;
+        top: 26%;
+        left: 30%;
+        color: #c7c7c7;
+    }
+    .thumbnail:after {
+        content: "Upload Thumbnail";
+        position: absolute;
+        bottom: -25px;
+        display: block;
+        width: 100%;
+        left: 0;
+        color: rgba(0, 0, 0, 0.58);
+    }
+    .wrapper {
+        .header {
+            padding: 0.5rem 0;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+    }
+    .add-customization {
+        height: 200px;
+        width: 400px;
+        background: #efefef;
+        border: 1px solid #e4e4e4;
+        margin: 0 auto;
+        position: relative;
+        top: 15px;
+        text-align: center;
+        font-weight: 600;
+        color: #979797;
+        flex-wrap: wrap;
+        user-select: none;
+        cursor: pointer;
+        mat-icon {
+            font-size: 4rem;
+            width: 4rem;
+            height: 4rem;
+            color: #484848;
+        }
+        div {
+            width: 100%;
+        }
+    }
+
+    /deep/ add-customization {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 70%;
+        flex: 0 0 70%;
+        max-width: 70%;
+        flex-grow: 1;
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-bottom: 1.5rem;
+        margin-left: auto;
+        margin-right: auto;
+        input.mat-input-element.title {
+            font-size: 1rem;
+            color: #3F51B5;
+            font-weight: 700;
+        }
+        mat-slide-toggle {
+            .mat-slide-toggle-bar {
+                width: 34px;
+                height: 12px;
+            }
+            .mat-slide-toggle-thumb-container {
+                width: 20px;
+                height: 20px;
+                top: -3px;
+                .mat-slide-toggle-thumb {
+                    height: 18px;
+                    width: 18px;
+                }
+            }
+        }
+    }
+
+
+}

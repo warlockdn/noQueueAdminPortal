@@ -13,6 +13,9 @@ import { CommonService } from './../../service/common/common.service'
   //encapsulation: ViewEncapsulation.None,
 })
 export class LoginComponent implements OnInit {
+
+  user: { username ? : string, password ? : string } = {};
+  error = false;
   
   constructor(private auth: AuthService, private common: CommonService, private router: Router) {
     this.auth.logout();
@@ -23,14 +26,24 @@ export class LoginComponent implements OnInit {
     this.auth.logout();
   }
 
-  login() {
-    this.auth.login()
-      .then((success) => {
-        this.router.navigate(['/dashboard'])
-      })
-      .catch((err) => {
-        alert(err)
-      })
+  login(loginForm) {
+
+    this.error = false;
+
+    this.auth.login({ username: this.user.username, password: this.user.password, type: 'boss' }).then((success) => {
+      this.router.navigate(['/dashboard'])
+    }).catch((err) => {
+      this.error = true;
+    })
   }
 
 }
+
+    
+// this.auth.login()
+//   .then((success) => {
+//     this.router.navigate(['/dashboard'])
+//   })
+//   .catch((err) => {
+//     alert(err)
+//   })

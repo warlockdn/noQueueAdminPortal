@@ -14,35 +14,21 @@
 
       <h3 class="title">Promotional</h3>
       <ul class="category font-weight-bold">
-        <li>
-          Recommended
-          <div class="float-right">
-            <button mat-icon-button>
-              <mat-icon class="ion-edit" (click)="openDialog('edit')"></mat-icon>
-            </button>
-          </div>
-        </li>
-        <li>
-          Popular
-          <div class="float-right">
-            <button mat-icon-button>
-              <mat-icon class="ion-edit" (click)="openDialog('edit')"></mat-icon>
-            </button>
-          </div>
-        </li>
+        <li>Recommended</li>
+        <li>Popular</li>
       </ul>
 
       <h3 class="title">Food Menu</h3>
       <ul class="category mb-5">
 
-        <li *ngFor="let item of menu" (click)="loadCategory(item)">
+        <li *ngFor="let item of menu; let i = index" (click)="loadCategory(item)" >
           {{ item.name }}
           <div class="float-right">
-            <button mat-icon-button>
-              <mat-icon class="ion-edit" (click)="openDialog('edit', item)"></mat-icon>
+            <button mat-icon-button type="button">
+              <mat-icon class="ion-edit" (click)="openEditDialog('edit', item, i)"></mat-icon>
             </button>
-            <button mat-icon-button>
-              <mat-icon class="ion-trash-b" (click)="deleteCategory(item)"></mat-icon>
+            <button mat-icon-button type="button">
+              <mat-icon class="ion-trash-b" (click)="deleteCategory(item, i)"></mat-icon>
             </button>
           </div>
         </li>
@@ -57,10 +43,10 @@
     <div class="col col-9 col-sm-9 main-section no-scroll">
 
       <!-- Empty Section -->
-      <empty-selection *ngIf="isCategorySelected == true"></empty-selection>
+      <empty-selection *ngIf="isCategorySelected == false"></empty-selection>
 
       <!-- Category Menu Loaded -->
-      <manage-category *ngIf="isCategorySelected == false"></manage-category>
+      <manage-category *ngIf="isCategorySelected == true"></manage-category>
 
     </div>
 

@@ -1,0 +1,125 @@
+<div class="content">
+  <h3 class="subtitle">Basic Details</h3>
+  <div class="row">
+    <div class="col col-7 col-md-7">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Your Dish Name">
+      </mat-form-field>
+      <mat-form-field class="mr-4">
+        <input matInput placeholder="Base Price">
+      </mat-form-field>
+      <mat-checkbox>Is Non-Veg</mat-checkbox>
+      <mat-form-field class="full-width">
+        <textarea matInput name="" cols="30" rows="3" placeholder="Description"></textarea>
+      </mat-form-field>
+    </div>
+    <div class="col col-1 col-md-1"></div>
+    <div class="col col-4 col-md-4 thumbnail text-center">
+      <input type="file" />
+    </div>
+  </div>
+
+  <br/>
+  <br/>
+
+  <div class="row">
+    <div class="col col-12 col-md-10 col-md-offset-1 mb-4">
+        <h3 class="subtitle">Available Quantities</h3>
+        <div class="wrapper">
+          <div class="row header">
+            <div class="col col-6">Title</div>
+            <div class="col col-2">Diff. Price</div>
+            <div class="col col-2">Non-Veg</div>
+            <div class="col col-2"></div>
+          </div>
+          <div class="row body">
+            <div class="col col-6">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Quantity Title">
+              </mat-form-field>
+            </div>
+            <div class="col col-2">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Price">
+              </mat-form-field>
+            </div>
+            <div class="col col-2 align-self-center">
+              <mat-slide-toggle></mat-slide-toggle>
+            </div>
+            <div class="col col-2 align-self-center">
+              <button mat-icon-button color="warn" class="mat-elevation-z0" type="button">
+                <mat-icon class="ion-android-close" (click)="deleteItem()"></mat-icon>
+              </button>
+            </div>
+          </div>
+          <div class="row body">
+            <div class="col col-6">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Quantity Title">
+              </mat-form-field>
+            </div>
+            <div class="col col-2">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Price">
+              </mat-form-field>
+            </div>
+            <div class="col col-2 align-self-center">
+              <mat-slide-toggle></mat-slide-toggle>
+            </div>
+            <div class="col col-2 align-self-center">
+              <button mat-icon-button color="warn" class="mat-elevation-z0" type="button">
+                <mat-icon class="ion-android-close" (click)="deleteItem()"></mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="col col-6 col-md-6 mb-4">
+      <h3 class="subtitle">Extras</h3>
+      <div class="wrapper">
+        <div class="row header">
+          <div class="col col-8">Title</div>
+          <div class="col col-4">Diff. Price</div>
+        </div>
+        <div class="row body">
+          <div class="col col-8">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Quantity Title">
+            </mat-form-field>
+          </div>
+          <div class="col col-4">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Price">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row body">
+          <div class="col col-8">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Quantity Title">
+            </mat-form-field>
+          </div>
+          <div class="col col-4">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Price">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col col-12 col-md-12 mb-4" (click)="addNewCustomization('Customize', true)">
+      <div class="add-customization d-flex align-items-center">
+        <div>
+          <mat-icon class="ion-ios-plus-empty"></mat-icon>
+          <br/> Add New Customization</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="m-auto" style="width: 400px">
+  <button mat-raised-button block color="green" class="mt-4 mb-4">Save Item</button>
+</div>
