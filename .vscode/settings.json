@@ -18,4 +18,5 @@
         "typescriptreact",
         "yml"
     ],
+    "editor.fontSize": 13,
 }

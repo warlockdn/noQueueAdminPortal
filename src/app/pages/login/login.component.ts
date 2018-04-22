@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   
   constructor(private auth: AuthService, private common: CommonService, private router: Router) {
     this.auth.logout();
-    this.common.title = 'partnerWeb';
+    this.common.title = 'adminWeb';
   }
 
   ngOnInit() {

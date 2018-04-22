@@ -1,24 +1,39 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import 'rxjs/add/operator/map';
+import { resolve } from 'url';
+import { reject } from 'q';
+
+import { ConstantsService } from '../constants/constants.service';
 
 export interface Category {
   name ? : string,
-    type ? : string,
-    typeID ? : number,
-    items: [{
-      name ? : string,
-      type ? : string,
-      typeID ? : number,
-    }]
+  type ? : string,
+  typeID ? : number,
+  items ? : Array<Items>
+}
+
+export interface Items {
+  name: string,
+  price: number,
+  isEnabled: boolean,
+  isNonVeg: boolean,
+  items: [Object]
 }
 
 @Injectable()
 export class MenuManagerService {
 
-  categorySelected: Category;
-  constructor() {}
+  public menu;
+  public categorySelected: Category;
+  public itemSelected: Object = {};
+  public isAdding: boolean = false;
+
+  constructor(private router: Router, private http: HttpClient) {}
 
   // mock data for dummy menu
-  getMenu() {
+  /* getMenu() {
     let categories = [{
       name: 'Veg Indian Starters',
       type: 'veg',
@@ -342,14 +357,140 @@ export class MenuManagerService {
     }]
 
     return categories;
+  } */
+
+
+  fetchMenu(partnerID) {
+    return new Promise((resolve: (success) => void, reject: (reason: Error) => void) => {
+      this.http.get(`${ConstantsService.partner}${partnerID}/menu`).subscribe(
+        response => {
+          resolve(response)
+        }, error => {
+          reject(error)
+        }
+      )
+    })
   }
 
+  /**
+    * Save to Server
+    *  @param: Type (Draft || Publish)
+    * 
+    */
+  uploadMenu(partnerID, type) {
+    return new Promise((resolve: (success) => void, reject: (reason: Error) => void) => {
+      this.http.post(`${ConstantsService.partner}${partnerID}/menu`, 
+        { 
+          menu: this.getMenu(), 
+          type: type
+        }).subscribe(
+        response => {
+          resolve(response)
+        }, error => {          
+          reject(error)
+        }
+      )
+    })
+  }
 
+  saveMenu(menu) {
+    localStorage.setItem('menu', JSON.stringify(menu));
+  }
+
+  getMenu() {
+    return JSON.parse(localStorage.getItem('menu'));
+  }
 
   loadCategory(item: Category) {
     this.categorySelected = item;
+  }
+
+  getItem() {
+    
+  }
+
+  createCategory(category) {
+    this.menu.push(category);
+    this.saveMenu(this.menu);
+  }
+
+  editCategory(index, name) {
+    let menu = this.getMenu();
+    menu[index].name = name;
+    this.saveMenu(menu);
+    this.menu = menu;
+  }
+
+  deleteCategory(index) {
+    let menu = this.getMenu();
+    menu.splice(index, 1);
+
+    this.saveMenu(menu);
+    this.menu = menu;
+  }
+
+  saveItem(details, addons, customization) {
+
+    let data = details;
+    data.isEnabled = true;
+
+    if (addons) { 
+      data.hasAddons = true 
+      data.addons = addons
+    } else { 
+      data.hasAddons = false;
+    }
+
+    let menu = this.getMenu();
+
+    menu.map((category: Category) => {
+      if (category.name === this.categorySelected.name) {
+        category.items = category.items || [];
+        category.items.push(data);
+        this.categorySelected.items.push(data);
+      }
+    })
+    
+    this.saveMenu(menu);
 
   }
 
+  loadItem(item, state) {
+    if (state === 'new') {
+      this.itemSelected = {}
+    } else {
+      this.itemSelected = item;
+    }
+  }
+
+  deleteItem(index) {
+    this.categorySelected.items.splice(index, 1);
+
+    let menu = this.getMenu();
+
+    menu.map((category) => {
+      if (category.name === this.categorySelected.name) {
+        category.items.splice(index, 1);
+        return;
+      }
+    })
+
+    this.saveMenu(menu);
+  }
+
+  copyItem(item) {
+    this.categorySelected.items.push(item);
+
+    let menu = this.getMenu();
+
+    menu.map((category) => {
+      if (category.name === this.categorySelected.name) {
+        category.items.push(item);
+        return;
+      }
+    })
+
+    this.saveMenu(menu);
+  }
 
 }

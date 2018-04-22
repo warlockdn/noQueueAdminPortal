@@ -12,33 +12,37 @@ import { MenuManagerService } from '../../../service/menu-manager/menu-manager.s
 export class ManageCategoryComponent implements OnInit {
 
   items: any;
-  isAdding: boolean = false;
 
-  constructor(public dialog: MatDialog, public menuService: MenuManagerService, public common: CommonService) {
-    
-  }
+  constructor(public dialog: MatDialog, public menuService: MenuManagerService, public common: CommonService) { }
 
   ngOnInit() {
   }
 
   addNewItem() {
-    this.isAdding = true;    
+    this.menuService.loadItem(null, 'new');
+    this.menuService.isAdding = true;    
   }
 
-  editProduct(item) {
-    this.isAdding = true;
+  copyItem(item) {
+    this.menuService.copyItem(item);
   }
 
-  deleteProduct(item) {
-    
+  editItem(item) {
+    this.menuService.loadItem(item, 'edit');
+    this.menuService.isAdding = true;
+  }
+
+  deleteItem(item, index) {
+    debugger;
     const dialogRef = this.dialog.open(DeleteProduct, {
-      width: '250px'
+      width: '250px',
+      data: index
     });
-
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      if (result.index) {
+        this.menuService.deleteItem(result.index);
+      }
     });
-
   }
 
 }
@@ -51,7 +55,7 @@ export class ManageCategoryComponent implements OnInit {
   </div>
   <div mat-dialog-actions>
     <button mat-button (click)="onNoClick()">CANCEL</button>
-    <button mat-button cdkFocusInitial color="warn">DELETE</button>
+    <button mat-button cdkFocusInitial color="warn" (click)="delete()">DELETE</button>
   </div>`,
 })
 
@@ -64,6 +68,12 @@ export class DeleteProduct {
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  delete() {
+    this.dialogRef.close({
+      index: this.data
+    })
   }
 
 }

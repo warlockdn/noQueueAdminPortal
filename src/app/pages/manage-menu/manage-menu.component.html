@@ -5,15 +5,15 @@
     <div class="col col-3 col-sm-3 border-right no-scroll">
       
       <div class="float-right">
-          <button mat-button class="mr-2">Save Draft</button>
-          <button mat-raised-button color="dark-green" no-shadow>
+          <button mat-button class="mr-2" (click)="uploadMenu('draft')" [disabled]="isDisabled">Save Draft</button>
+          <button mat-raised-button color="dark-green" no-shadow (click)="uploadMenu('publish')" [disabled]="isDisabled">
             <i class="ion-ios-checkmark-empty"></i> Publish
           </button>
       </div>
       <div class="clearfix"></div>
 
       <h3 class="title">Promotional</h3>
-      <ul class="category font-weight-bold">
+      <ul class="category font-weight-bold" style="opacity: 0.3; pointer-events: none">
         <li>Recommended</li>
         <li>Popular</li>
       </ul>
@@ -21,7 +21,7 @@
       <h3 class="title">Food Menu</h3>
       <ul class="category mb-5">
 
-        <li *ngFor="let item of menu; let i = index" (click)="loadCategory(item)" >
+        <li *ngFor="let item of menuService.menu; let i = index" (click)="loadCategory(item)" >
           {{ item.name }}
           <div class="float-right">
             <button mat-icon-button type="button">
@@ -35,7 +35,7 @@
 
       </ul>
 
-      <button mat-raised-button class="sticky-bottom" color="primary" (click)="openDialog('new')" block>CREATE CATEGORY</button>
+      <button mat-raised-button class="sticky-bottom" color="primary" (click)="createCategory('new')" block>CREATE CATEGORY</button>
 
     </div>
 

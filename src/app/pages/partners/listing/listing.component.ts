@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 
 import { PartnerService } from '../../../service/partner/partner.service';
+import { MenuManagerService } from '../../../service/menu-manager/menu-manager.service';
 
 @Component({
   selector: 'app-listing',
@@ -17,7 +18,7 @@ export class PartnerListingComponent implements OnInit {
   dataSource: any;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private router: Router, private partner: PartnerService) {  }
+  constructor(private router: Router, private partner: PartnerService, private menuService: MenuManagerService) {  }
 
   ngOnInit() {
     this.partner.getAllPartners().then((result) => {

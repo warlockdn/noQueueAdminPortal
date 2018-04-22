@@ -1,8 +1,8 @@
-<form #partnerForm="ngForm" (ngSubmit)="updatePartner(editpartnerForm)" novalidate>
+<form #partnerForm="ngForm" (ngSubmit)="updatePartner(partnerForm)" novalidate>
   <h2 class="title mb-4 d-inline-block">Edit Partner</h2>
   <div class="float-right">
     <button mat-raised-button class="mat-elevation-z1 shadow mr-2">Cancel</button>
-    <button mat-raised-button class="mat-elevation-z1 shadow" color="green" type="submit" [disabled]="editpartnerForm.invalid">Update</button>
+    <button mat-raised-button class="mat-elevation-z1 shadow" color="green" type="submit" [disabled]="partnerForm.invalid">Update</button>
   </div>
   <div class="clearfix"></div>
   <div class="row">

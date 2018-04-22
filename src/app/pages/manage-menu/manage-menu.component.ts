@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { ParamMap, Router, ActivatedRoute } from '@angular/router';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 
 import { CommonService } from './../../service/common/common.service';
 import { MenuManagerService } from '../../service/menu-manager/menu-manager.service';
@@ -22,20 +23,24 @@ export interface Category {
 })
 export class ManageMenuComponent implements OnInit {
 
-  menu: any = [];
   isCategorySelected: boolean = false;
+  isDisabled: boolean = false;
 
-  constructor(public dialog: MatDialog, private common: CommonService, private menuService: MenuManagerService) {
+  constructor(private route: ActivatedRoute, private router: Router, public dialog: MatDialog, private common: CommonService, private menuService: MenuManagerService, public snackBar: MatSnackBar) {
     this.common.title = 'Manage Menu';
-
-    // Demo...
-    this.menu = [
-      { name: 'Pizza' },
-      { name: 'Desserts' }
-    ];
   }
 
   ngOnInit() {
+
+    const partnerID = this.route.snapshot.params.partnerid.toString();
+    
+    this.menuService.fetchMenu(partnerID).then((success) => {
+      this.menuService.menu = success.data;
+      this.menuService.saveMenu(success.data);
+    }).catch((err) => {
+      console.log(err)
+    })
+
   }
 
   openEditDialog(type, item, index): void {
@@ -54,13 +59,13 @@ export class ManageMenuComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.menu[result.index].name = result.name;
+        this.menuService.editCategory(result.index, result.name)
       }
     });
   }
 
   // Create New Category
-  openDialog(type): void {    
+  createCategory(type): void {    
 
     const dialogRef = this.dialog.open(DialogNewCategory, {
       width: '250px',
@@ -71,9 +76,9 @@ export class ManageMenuComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.menu.push({
+        this.menuService.createCategory({
           name: result.name.toString()
-        })
+        });
       }
     });
 
@@ -95,8 +100,7 @@ export class ManageMenuComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result.status) {
-        this.menu.splice(result.index, 1);
-
+        this.menuService.deleteCategory(result.index)
         // Bring back to Idle state (none selected).
         if (item.selected) {
           this.isCategorySelected = false;
@@ -110,7 +114,7 @@ export class ManageMenuComponent implements OnInit {
     console.log('Loading Category');
 
     // Deselect all menu's
-    this.menu.map((item) => {
+    this.menuService.menu.map((item) => {
       item.selected = false;
     });
 
@@ -120,6 +124,21 @@ export class ManageMenuComponent implements OnInit {
     // Show Category Data
     this.isCategorySelected = true;
 
+  }
+
+  uploadMenu(type) {
+    // Disable buttons.
+    this.isDisabled = true;
+    const partnerID = this.route.snapshot.params.partnerid.toString();
+    this.menuService.uploadMenu(partnerID, type).then((respose) => {
+      this.isDisabled = false;
+      this.router.navigate(['partner']);
+    }).catch((err) => {
+      this.snackBar.open('Error updating menu. Try again.', 'Close', {
+        duration: 3000,
+      });
+      this.isDisabled = false;
+    })
   }
 
 }

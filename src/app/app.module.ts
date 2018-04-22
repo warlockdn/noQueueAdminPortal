@@ -34,7 +34,8 @@ import {
   MatDatepickerModule,
   MatNativeDateModule,
   MatDialogModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatSnackBarModule
  } from '@angular/material';
 import { AmazingTimePickerModule } from 'amazing-time-picker';
 import { AppComponent } from './app.component';
@@ -53,7 +54,7 @@ import { FinancialsComponent } from './pages/financials/financials.component';
 import { FinanceAnalyticsComponent } from './pages/financials/finance-analytics/finance-analytics.component';
 import { TransactionsComponent, ViewTransaction } from './pages/financials/transactions/transactions.component';
 import { ManageCategoryComponent, DeleteProduct } from './pages/manage-menu/manage-category/manage-category.component';
-import { ManageMenuItemComponent, AddCustomizationComponent, AddItemComponent } from './pages/manage-menu/manage-item/manage-item.component';
+import { ManageMenuItemComponent } from './pages/manage-menu/manage-item/manage-item.component';
 
 // 404
 import { NotFound404Component } from './pages/not-found-404/not-found-404.component';
@@ -86,11 +87,9 @@ import { MenuManagerService } from './service/menu-manager/menu-manager.service'
     ViewTransaction,
     ManageCategoryComponent,
     DeleteProduct,
-    ManageMenuItemComponent,
-    AddCustomizationComponent,
-    AddItemComponent
+    ManageMenuItemComponent
   ],
-  entryComponents: [DialogNewCategory, ViewTransaction, DeleteCategory, DeleteProduct, AddCustomizationComponent, AddItemComponent],
+  entryComponents: [DialogNewCategory, ViewTransaction, DeleteCategory, DeleteProduct],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -114,7 +113,8 @@ import { MenuManagerService } from './service/menu-manager/menu-manager.service'
     MatNativeDateModule,
     MatDialogModule,
     MatSlideToggleModule,
-    AmazingTimePickerModule
+    AmazingTimePickerModule,
+    MatSnackBarModule
   ],
   providers: [
     ConstantsService,

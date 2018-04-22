@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { MenuManagerService } from '../../../service/menu-manager/menu-manager.service';
 
 @Component({
   selector: 'manage-item',
@@ -7,9 +9,149 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManageMenuItemComponent implements OnInit {
 
-  constructor() { }
+  detailsForm: FormGroup;
+  quantityForm: FormGroup;
+  extrasForm: FormGroup;
+  menuItem: any = {};
 
-  ngOnInit() {
+  constructor(
+    private fb: FormBuilder, private menuService: MenuManagerService) {
+      
+    this.menuItem = this.menuService.itemSelected;
+    
+    this.createDetailsForm();
+    this.createQuantityForm();
+    this.createExtrasForm();
+    
+    // Add default Items (Quantity Form)
+    if (!this.menuItem.addons) {
+      this.addQuantity(null);
+      this.addQuantity(null);
+    }
+
+    // Add default Items (Extras Form)
+    if (!this.menuItem.addons) {
+      this.addExtra(null);
+      this.addExtra(null);
+    }
+  }
+
+  ngOnInit() { }
+
+
+  // Details Form
+
+  createDetailsForm() {
+    // Create Quantity Form
+    if (Object.keys(this.menuItem).length > 0) {
+      this.detailsForm = this.fb.group({
+        name: new FormControl(this.menuItem.name, Validators.required),
+        price: new FormControl(this.menuItem.price, Validators.required),
+        isNonVeg: new FormControl(this.menuItem.isNonVeg),
+        description: new FormControl(this.menuItem.description)
+      })
+    } else {
+      this.detailsForm = this.fb.group({
+        name: new FormControl('', Validators.required),
+        price: new FormControl(null, Validators.required),
+        isNonVeg: new FormControl(false),
+        description: new FormControl('')
+      })
+    }
+  }
+
+
+  // Quantity Form
+
+  createQuantityForm() {
+    // Create Quantity Form
+    this.quantityForm = this.fb.group({
+      quantities: this.fb.array([])
+    })
+    if (this.menuItem.addons) {
+      this.addQuantity(this.menuItem.addons.quantity);
+    }
+  }
+
+  get quantities(): FormArray {
+    return this.quantityForm.get('quantities') as FormArray;
+  }
+
+  addQuantity(quantities) {
+    if (quantities) {
+      quantities.forEach(quantity => {
+        this.quantities.push(this.fb.group({
+          title: [quantity.title, [Validators.required]],
+          price: [quantity.price, [Validators.required]],
+          isNonVeg: [quantity.isNonVeg]
+        }));
+      });
+    } else {
+      this.quantities.push(this.fb.group({
+        title: ['', [Validators.required]],
+        price: [null, [Validators.required]],
+        isNonVeg: [false]
+      }));
+    }
+  }
+
+  deleteQuantity(index) {
+    this.quantities.removeAt(index);
+  }
+
+  
+  // Extras
+
+  createExtrasForm() {
+    // Create Quantity Form
+    this.extrasForm = this.fb.group({
+      extras: this.fb.array([])
+    })
+    if (this.menuItem.addons) {
+      this.addExtra(this.menuItem.addons.extras);
+    }
+  }
+
+  get extras(): FormArray {
+    return this.extrasForm.get('extras') as FormArray;
+  }
+
+  addExtra(extras) {
+    if (extras) {
+      extras.forEach(extra => {
+        this.extras.push(this.fb.group({
+          title: [extra.title, [Validators.required]],
+          price: [extra.price, [Validators.required]],
+          isNonVeg: [extra.isNonVeg]
+        }));  
+      });
+    } else {
+      this.extras.push(this.fb.group({
+        title: ['', [Validators.required]],
+        price: [null, [Validators.required]],
+        isNonVeg: [false]
+      }));
+    }
+  }
+
+  deleteExtras(index) {
+    this.extras.removeAt(index);
+  }
+
+  saveItem() {
+    if (!this.detailsForm.invalid) {
+      const addons = {
+        quantity: this.quantityForm.value.quantities || null,
+        extras: this.extrasForm.value.extras || null
+      };
+  
+      this.menuService.saveItem(this.detailsForm.value, addons, null);
+      this.menuService.isAdding = false;
+    }
+  }
+
+  cancel() {
+    this.menuService.isAdding = false;
   }
 
 }
