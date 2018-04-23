@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve -aot -o --extract-css",
-    "build": "ng build --prod",
+    "build": "ng build --prod --aot=true --extract-css=true --build-optimizer=true --sourcemaps=false --output-hashing=all",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

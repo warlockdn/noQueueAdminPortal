@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ParamMap, Router, ActivatedRoute } from '@angular/router';
-import { NgForm } from '@angular/forms';
 import { } from '@types/googlemaps';
 import { ok } from 'assert';
 
@@ -16,27 +16,32 @@ export class EditPartnerComponent {
 
   // editpartnerForm: Partner;
 
-  @ViewChild('partnerForm') partnerForm: NgForm;
+  partnerForm: FormGroup;
   @ViewChild('gmap') gmapElement: any;
 
   map: google.maps.Map;
+  markers: any = [];
   partnerID: String;
+  
   cuisines = ['Afghan','Afghani','African','American','Andhra','Arabian','Armenian','Asian','Assamese','Australian','Awadhi','Bakery','Bangladeshi','BBQ','Belgian','Bengali','Beverages','Bihari','Biryani','Bohri','Brasserie','British','Bubble Tea','Burger','Burmese','Cafe','Charcoal Chicken','Chettinad','Chinese','Continental','Cuisine Varies','Desserts','Drinks Only','Ethiopian','European','Fast Food','Fijian','Filipino','Finger Food','French','German','Goan','Greek','Gujarati','Healthy Food','Hot Pot','Hyderabadi','Ice Cream','Illocano','Indian','Indonesian','Iranian','Irish','Israeli','Italian','Japanese','Juices','Kashmiri','Kebab','Kerala','Konkan','Korean','Lebanese','Lucknowi','Maharashtrian','Malaysian','Malwani','Mangalorean','Martabak','Mediterranean','Mexican','Middle Eastern','Mithai','Modern Australian','Modern Indian','Mongolian','Moroccan','Mughlai','Naga','Native Australian','Nepalese','North Eastern','North Indian','Oriya','Pakistani','Panini','Parsi','Peruvian','Pizza','Poké','Portuguese','Rajasthani','Raw Meats','Roast Chicken','Rolls','Russian','Salad','Sandwich','Seafood','Sindhi','Singaporean','South American','South Indian','Spanish','Sri Lankan','Steak','Street Food','Sushi','Tea','Tex-Mex','Thai','Tibetan','Turkish','Vietnamese','Wrap'];
-  constructor(private route: ActivatedRoute, private partner: PartnerService) { }
+
+  constructor(private route: ActivatedRoute, private partner: PartnerService, private fb: FormBuilder) { 
+    this.createPartnerForm();
+  }
 
   ngAfterViewInit() {
 
     this.partnerID = (this.route.snapshot.params.partnerid).toString();
-
     let mapProp = {
       center: new google.maps.LatLng(18.5793, 73.8143),
       zoom: 2,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
-
+    
     this.partner.getPartner(this.partnerID).then((success) => {
 
+      console.log(success.data);
       this.partner.partnerData = success.data;
       this.loadLocation(this.partner.partnerData.location.coordinates[1], this.partner.partnerData.location.coordinates[0]);
 
@@ -45,26 +50,72 @@ export class EditPartnerComponent {
         longitude: this.partner.partnerData.location.coordinates[1],
       }
 
-      this.partnerForm.form.patchValue(this.partner.partnerData);
+      this.partnerForm.patchValue(this.partner.partnerData);
 
     }).catch((err) => {
       console.log(err.error);
     })
 
+
+  }
+
+  createPartnerForm() {
+    this.partnerForm = new FormGroup({
+        name: new FormControl('', Validators.required),
+        email: new FormControl('', [Validators.required, Validators.email]),
+        phone: new FormControl(null, [Validators.required]),
+        alternate: new FormControl(''),
+        location: this.fb.group({
+          latitude: new FormControl('', Validators.required),
+          longitude: new FormControl('', Validators.required)
+        }),
+        basic: this.fb.group({
+          address: new FormControl('', Validators.required),
+          city: new FormControl('', Validators.required),
+          state: new FormControl('', Validators.required),
+          pincode: new FormControl('', Validators.required)
+        }),
+        characteristics: this.fb.group({
+          type: new FormControl('', Validators.required),
+          services: new FormControl('', Validators.required),
+          seating: new FormControl('', Validators.required),
+          cuisine: new FormControl('', Validators.required),
+          weektiming: new FormControl('', Validators.required),
+          opentime: new FormControl('', Validators.required),
+          closetime: new FormControl('', Validators.required)
+        }),
+        commission: new FormControl(null, Validators.required),
+        bankDetails: this.fb.group({
+          accname: new FormControl('', Validators.required),
+          number: new FormControl('', Validators.required),
+          bankname: new FormControl('', Validators.required),
+          branch: new FormControl('', Validators.required),
+          ifsc: new FormControl('', Validators.required),
+        })
+      })
   }
 
   loadLocation(lat, long) {
     this.map.setCenter(new google.maps.LatLng(lat, long));
     this.map.setZoom(15);
     let location = new google.maps.LatLng(lat, long);
+
+    if (this.markers.length > 0) {
+      for(let i = 0; i < this.markers.length; i++){
+        this.markers[i].setMap(null);
+      }
+    }
+
     let marker = new google.maps.Marker({
       position: location,
       map: this.map
-    });    
+    });
+
+    this.markers.push(marker);
   }
 
   updatePartner(form) {
-    this.partner.updatePartner(this.partner.partnerData.partnerID, form.value).then((success) => {      
+    this.partner.updatePartner(this.partner.partnerData.partnerID, form).then((success) => {
       console.log('Partner Saved Successfully');
     }).catch((error) => {
       console.log('Error Saving Partner ', error.error.message);

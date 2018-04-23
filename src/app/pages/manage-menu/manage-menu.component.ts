@@ -26,7 +26,7 @@ export class ManageMenuComponent implements OnInit {
   isCategorySelected: boolean = false;
   isDisabled: boolean = false;
 
-  constructor(private route: ActivatedRoute, private router: Router, public dialog: MatDialog, private common: CommonService, private menuService: MenuManagerService, public snackBar: MatSnackBar) {
+  constructor(private route: ActivatedRoute, private router: Router, public dialog: MatDialog, private common: CommonService, public menuService: MenuManagerService, public snackBar: MatSnackBar) {
     this.common.title = 'Manage Menu';
   }
 
