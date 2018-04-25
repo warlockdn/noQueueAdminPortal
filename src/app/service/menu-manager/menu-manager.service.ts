@@ -447,7 +447,12 @@ export class MenuManagerService {
       if (category.name === this.categorySelected.name) {
         category.items = category.items || [];
         category.items.push(data);
-        this.categorySelected.items.push(data);
+        if (!this.categorySelected.items) {
+          this.categorySelected.items = [];
+          this.categorySelected.items.push(data);  
+        } else {
+          this.categorySelected.items.push(data);
+        }
       }
     })
     

@@ -65,7 +65,7 @@ export class ManageMenuComponent implements OnInit {
   }
 
   // Create New Category
-  createCategory(type): void {    
+  createCategory(type): void {
 
     const dialogRef = this.dialog.open(DialogNewCategory, {
       width: '250px',

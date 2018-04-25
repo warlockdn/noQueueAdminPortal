@@ -61,38 +61,38 @@ export class EditPartnerComponent {
 
   createPartnerForm() {
     this.partnerForm = new FormGroup({
-        name: new FormControl('', Validators.required),
-        email: new FormControl('', [Validators.required, Validators.email]),
-        phone: new FormControl(null, [Validators.required]),
-        alternate: new FormControl(''),
-        location: this.fb.group({
-          latitude: new FormControl('', Validators.required),
-          longitude: new FormControl('', Validators.required)
-        }),
-        basic: this.fb.group({
-          address: new FormControl('', Validators.required),
-          city: new FormControl('', Validators.required),
-          state: new FormControl('', Validators.required),
-          pincode: new FormControl('', Validators.required)
-        }),
-        characteristics: this.fb.group({
-          type: new FormControl('', Validators.required),
-          services: new FormControl('', Validators.required),
-          seating: new FormControl('', Validators.required),
-          cuisine: new FormControl('', Validators.required),
-          weektiming: new FormControl('', Validators.required),
-          opentime: new FormControl('', Validators.required),
-          closetime: new FormControl('', Validators.required)
-        }),
-        commission: new FormControl(null, Validators.required),
-        bankDetails: this.fb.group({
-          accname: new FormControl('', Validators.required),
-          number: new FormControl('', Validators.required),
-          bankname: new FormControl('', Validators.required),
-          branch: new FormControl('', Validators.required),
-          ifsc: new FormControl('', Validators.required),
-        })
+      name: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      phone: new FormControl(null, [Validators.required]),
+      alternate: new FormControl(''),
+      location: this.fb.group({
+        latitude: new FormControl('', Validators.required),
+        longitude: new FormControl('', Validators.required)
+      }),
+      basic: this.fb.group({
+        address: new FormControl('', Validators.required),
+        city: new FormControl('', Validators.required),
+        state: new FormControl('', Validators.required),
+        pincode: new FormControl('', Validators.required)
+      }),
+      characteristics: this.fb.group({
+        type: new FormControl('', Validators.required),
+        services: new FormControl('', Validators.required),
+        seating: new FormControl('', Validators.required),
+        cuisine: new FormControl('', Validators.required),
+        weektiming: new FormControl('', Validators.required),
+        opentime: new FormControl('', Validators.required),
+        closetime: new FormControl('', Validators.required)
+      }),
+      commission: new FormControl(null, Validators.required),
+      bankDetails: this.fb.group({
+        accname: new FormControl('', Validators.required),
+        number: new FormControl('', Validators.required),
+        bankname: new FormControl('', Validators.required),
+        branch: new FormControl('', Validators.required),
+        ifsc: new FormControl('', Validators.required),
       })
+    })
   }
 
   loadLocation(lat, long) {
