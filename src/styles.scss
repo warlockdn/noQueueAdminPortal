@@ -78,6 +78,32 @@ body {
   animation-name: shake;
 }
 
+@-webkit-keyframes fa-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+@keyframes fa-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+
+.fa-spin {
+  -webkit-animation: fa-spin 2s infinite linear;
+  animation: fa-spin 2s infinite linear;
+}
+
 // Helper Classes
 
 .no-scroll::-webkit-scrollbar {
@@ -96,6 +122,12 @@ body {
 }
 
 // Material Extensions
+
+mat-sidenav {
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+}
 
 mat-toolbar.mat-toolbar-multiple-rows {
   min-height: 56px;
@@ -171,7 +203,7 @@ button[no-shadow] {
     background-color: map-get($map: $theme-colors, $key: grey-light);
     border-bottom-color: transparent;
     mat-header-cell {
-      font-size: 1rem;
+      font-size: 0.9rem;
       font-weight: 600;
       color: map-get($map: $theme-colors, $key: mid-black)
     }
@@ -185,6 +217,7 @@ button[no-shadow] {
   mat-row:hover {
     background-color: #fff;
     transition: 0.2s;
+    box-shadow: 0 0px 15px rgba(221, 221, 221, 0.65);
   }
 }
 
@@ -241,6 +274,15 @@ h2.title {
   }
 }
 
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+input[type='number'] {
+  -moz-appearance:textfield;
+}
 
 // End App Styles
 

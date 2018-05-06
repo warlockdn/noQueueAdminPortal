@@ -18,10 +18,51 @@ app-add-partner:host {
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
         padding: 30px 30px 35px;
         margin-bottom: 2rem;
+        &.loading:before {
+            content: "";
+            background: rgba(0, 0, 0, 0.40);
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        &.loading:after {
+            content: "\f29c";
+            display: inline-block;
+            font-family: "Ionicons";
+            speak: none;
+            font-style: normal;
+            font-weight: normal;
+            font-variant: normal;
+            text-transform: none;
+            text-rendering: auto;
+            line-height: 1;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-size: 65px;
+            margin: 0 auto;
+            left: 45%;
+            top: 45%;
+            color: #fff;
+            position: absolute;
+            -webkit-animation: fa-spin 2s infinite linear;
+            animation: fa-spin 2s infinite linear;
+        }
+        &.loading {
+            position: relative;
+            overflow: hidden;
+        }
         h3.title {
             font-size: 1rem;
             font-weight: 600;
             margin-bottom: 1rem;
+        }
+        .logo {
+            img {
+                max-width: 100%;
+                max-height: 100%;
+            }
         }
         mat-form-field {
             width: 100%;

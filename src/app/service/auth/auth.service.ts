@@ -23,7 +23,7 @@ export class AuthService {
 
   login(params) {
     return new Promise((resolve: (success) => void, reject: (reason: Error) => void) => {
-      this.http.post(ConstantsService.auth + 'login', params).subscribe(
+      this.http.post(ConstantsService.auth + '/login', params).subscribe(
         response => {
           this.isLoggedIn = true;
           this.setLoginStatus();
@@ -52,6 +52,7 @@ export class AuthService {
   logout() {
     return new Promise((reject, resolve) => {
       localStorage.removeItem('isLoggedIn')
+      localStorage.removeItem('authToken');
       this.isLoggedIn = false;
       resolve()
     }).catch((err) => {
@@ -61,7 +62,8 @@ export class AuthService {
 
   getLoginStatus() {
     const status = localStorage.getItem('isLoggedIn');
-    if (status) {
+    const token = localStorage.getItem('authToken');
+    if (status && token) {
       return true
     } else {
       return false

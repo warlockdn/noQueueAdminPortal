@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     this.error = false;
 
     this.auth.login({ username: this.user.username, password: this.user.password, type: 'boss' }).then((success) => {
-      this.router.navigate(['/dashboard'])
+      this.router.navigate(['/partner'])
     }).catch((err) => {
       this.error = true;
     })

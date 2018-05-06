@@ -1,7 +1,7 @@
+<img src="./assets/images/logo.png" alt="" class="mb-5 d-block">
+
 <form #loginForm="ngForm" id="loginFormId" [class.error]="error === true" (ngSubmit)="login(loginForm)" novalidate>
   
-  <img src="./assets/images/logo.png" alt="" class="mb-5 d-block">
-
   <mat-form-field class="mb-3">
     <input matInput placeholder="Partner ID" name="username" [(ngModel)]="user.username" #username="ngModel" required>
   </mat-form-field>
@@ -12,3 +12,7 @@
 
   <button mat-raised-button color="primary" block>Login</button>
 </form>
+
+<div class="info text-center">
+  &copy; SpazeFood Inc. 2018
+</div>

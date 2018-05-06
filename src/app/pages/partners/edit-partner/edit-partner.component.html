@@ -1,7 +1,7 @@
 <form [formGroup]="partnerForm" (ngSubmit)="updatePartner(partnerForm.value)" novalidate>
   <h2 class="title mb-4 d-inline-block">Edit Partner</h2>
   <div class="float-right">
-    <button mat-raised-button class="mat-elevation-z1 shadow mr-2">Cancel</button>
+    <button mat-raised-button class="mat-elevation-z1 shadow mr-2" (click)="cancel()">Cancel</button>
     <button mat-raised-button class="mat-elevation-z1 shadow" color="green" type="submit" [disabled]="partnerForm.invalid">Update</button>
   </div>
   <div class="clearfix"></div>
@@ -132,6 +132,14 @@
       </div>
     </div>
     <div class="col col-md-4">
+
+      <div [ngClass]="isLoading ? 'box-card loading' : 'box-card'">
+        <h3 class="title">Logo</h3>
+        <div class="logo mb-3">
+          <img class="m-auto" *ngIf="partnerLogo" [src]="partnerLogo" />
+        </div>
+        <input type="file" (change)="handleUpload($event.target.files, $event)" accept="image/*" />
+      </div>
 
       <div class="box-card">
         <h3 class="title">Business Agreement</h3>

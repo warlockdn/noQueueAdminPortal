@@ -7,6 +7,9 @@ export class CommonService {
   public title: string = 'Dashboard';
   public isOpen: boolean = false;
   public currency: String = 'Rs. ';
+
+  // property
+  public opened:Boolean = false;
   
   constructor(private auth: AuthService) { 
     this.isOpen = false;

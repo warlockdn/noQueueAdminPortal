@@ -13,6 +13,7 @@ export class PartnersComponent implements OnInit {
 
   constructor(private router: Router, private common: CommonService, private partner: PartnerService) { 
     this.common.title = 'Partners';
+    this.common.opened = false;
   }
 
   ngOnInit() {

@@ -4,6 +4,7 @@ import { resolve } from 'url';
 import { reject } from 'q';
 
 import { ConstantsService } from '../constants/constants.service';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class PartnerService {
@@ -17,7 +18,7 @@ export class PartnerService {
   getPartner(partnerID) {
 
     return new Promise((resolve: (success) => void, reject: (reason: Error) => void) => {
-      this.http.get(ConstantsService.partner + partnerID).subscribe(
+      this.http.get(ConstantsService.partner + '/' + partnerID).subscribe(
         response => {
           resolve(response)
         }, error => {          
@@ -42,7 +43,20 @@ export class PartnerService {
 
   updatePartner(partnerID, partner) {
     return new Promise((resolve: (success) => void, reject: (reason: Error) => void) => {
-      this.http.post(ConstantsService.partner + partnerID, partner).subscribe(
+      this.http.post(ConstantsService.partner + '/' + partnerID, partner).subscribe(
+        response => {
+          resolve(response)
+        }, error => {
+          reject(error)
+        }
+      )
+    })
+  }
+
+  setPartnerStatus(partnerID, status) {
+    return new Promise((resolve: (success) => void, reject: (reason: Error) => void) => {
+      this.http.post(ConstantsService.partner + '/updateStatus', { partnerID: partnerID, status: status})
+      .subscribe(
         response => {
           resolve(response)
         }, error => {
@@ -68,6 +82,20 @@ export class PartnerService {
           reject(error)
         }
       )
+    })
+  }
+
+  uploadPartnerLogo(file: File): Observable<Object> {
+    const url = `${ConstantsService.partner}/uploadimage`;
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    return this.http.post(url, formData)
+    .map((response) => { 
+      const result = {
+        url: `${ConstantsService.imageserve}${response["success"]}`,
+        imageid: response["success"]
+      };
+      return result; 
     })
   }
 

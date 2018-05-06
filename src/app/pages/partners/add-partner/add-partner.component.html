@@ -10,7 +10,7 @@
       <div class="box-card">
         <h3 class="title">Basic Details</h3>
         <mat-form-field>
-          <input matInput placeholder="Restaurant Name" formControlName="name">
+          <input matInput placeholder="Restaurant Name" formControlName="name" required>
         </mat-form-field>
         <mat-form-field>
           <input matInput placeholder="Email" type="email" formControlName="email">
@@ -18,7 +18,7 @@
         <div class="row">
           <div class="col-12 col-md-6">
             <mat-form-field>
-              <input matInput type="number" placeholder="Phone" formControlName="phone">
+              <input matInput type="number" placeholder="Phone" formControlName="phone" required>
             </mat-form-field>
           </div>
           <div class="col-12 col-md-6">
@@ -99,6 +99,7 @@
         <label class="d-block">Cuisine</label>
         <mat-form-field>
           <mat-select placeholder="Select Cuisine" multiple formControlName="cuisine" required>
+            <!-- <ngx-mat-select-search [formControl]="bankFilterCtrl"></ngx-mat-select-search> -->
             <mat-option *ngFor="let cuisine of cuisines" [value]="cuisine">{{cuisine}}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -106,13 +107,7 @@
         <label class="d-block">Timings</label>
         <mat-form-field>
           <mat-select placeholder="Timings" multiple formControlName="weektiming" required>
-            <mat-option value="Monday">Monday</mat-option>
-            <mat-option value="Tuesday">Tuesday</mat-option>
-            <mat-option value="Wednesday">Wednesday</mat-option>
-            <mat-option value="Thursday">Monday</mat-option>
-            <mat-option value="Friday">Friday</mat-option>
-            <mat-option value="Saturday">Saturday</mat-option>
-            <mat-option value="Sunday">Sunday</mat-option>
+            <mat-option *ngFor="let day of weekdays" value="day">{{ day }}</mat-option>
           </mat-select>
         </mat-form-field>
 
@@ -132,6 +127,14 @@
       </div>
     </div>
     <div class="col col-md-4">
+
+      <div [ngClass]="isLoading ? 'box-card loading' : 'box-card'">
+        <h3 class="title">Logo</h3>
+        <div class="logo mb-3">
+          <img class="m-auto" *ngIf="partnerLogo" [src]="partnerLogo" />
+        </div>
+        <input type="file" (change)="handleUpload($event.target.files, $event)" accept="image/*" />
+      </div>
 
       <div class="box-card">
         <h3 class="title">Business Agreement</h3>
@@ -182,14 +185,14 @@
         </p>
         <div class="info-box mt-4">
           <mat-form-field class="w-100">
-            <input matInput placeholder="Username" value="{{response.partnerID}}" readonly>
+            <input matInput placeholder="Username" value="{{response.username}}" readonly>
           </mat-form-field>
           <mat-form-field class="w-100">
             <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password" value="{{response.password}}" readonly>
             <mat-icon matSuffix (click)="hide = !hide" [class]="hide ? 'ion-eye-disabled' : 'ion-eye'"></mat-icon>
           </mat-form-field>
         </div>
-        <div class="d-flex mt-3">
+        <div class="d-flex mt-3 mb-4">
             <button mat-raised-button class="mat-elevation-z1 shadow mr-2" color="green" (click)="addNew()" block>Add New</button>
             <button mat-raised-button class="mat-elevation-z1 shadow ml-2" color="primary" (click)="manageMenu()" block>Manage Menu</button>
         </div>

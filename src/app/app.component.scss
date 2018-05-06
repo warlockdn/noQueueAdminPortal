@@ -1,4 +1,9 @@
 app-root:host {
+    .logo {
+        width: 162px;
+        height: 83px;
+        margin: 0 auto;
+    }
     .spacer {
         flex: 1 1 auto;
     }
@@ -13,10 +18,15 @@ app-root:host {
         outline: 0;
     }
     mat-list-item {
+        &.active {
+            font-weight: 700;
+            background: #e8e8e8;
+        }
         a {
             outline: 0;
             text-decoration: none;
             color: inherit;
+            padding-left: 1rem;
         }
         a.active {
             font-weight: 600;
@@ -25,5 +35,28 @@ app-root:host {
     .menu-icon {
         height: 28px;
         font-size: 28px;
+    }
+
+    // Support
+
+    .support-info {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background: #fff;
+        padding-bottom: 10px;
+    }
+
+    .support-info > mat-list > .mat-list-item {
+        font-size: 12px;
+    }
+    
+    .support-info > mat-list > .mat-list-item mat-icon {
+        width: 16px;
+        height: 16px;
+        position: relative;
+        top: 1px;
+        font-size: 16px;
+        margin-right: 2px;
     }
 }

@@ -10,15 +10,15 @@ app-login:host {
   justify-content: center;
   padding-top: 40px;
   padding-bottom: 40px;
-  background-color: #f5f5f5;
+  background-color: #3e50b5;
   height: 100%;
-  
+  flex-direction: column;  
   form {
-    width: 350px;
+    width: 280px;
     background: #fbfbfb;
     padding: 20px;
-    box-shadow: 0px 2px 4px #e4e4e4;
     border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     mat-form-field {
       width: 100%
     }
@@ -28,6 +28,12 @@ app-login:host {
     animation-name: shake;
     animation-duration: 1s;
     animation-fill-mode: both;
+  }
+
+  .info {
+    display: flex;
+    margin-top: 1.2rem;
+    color: #fbfbfb;  
   }
   
 }

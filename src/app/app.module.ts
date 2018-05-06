@@ -36,15 +36,18 @@ import {
   MatNativeDateModule,
   MatDialogModule,
   MatSlideToggleModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatFormFieldModule
  } from '@angular/material';
+
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { AmazingTimePickerModule } from 'amazing-time-picker';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 
 import { PartnersComponent } from './pages/partners/partners.component';
-import { PartnerListingComponent } from './pages/partners/listing/listing.component';
+import { PartnerListingComponent, PartnerStatus } from './pages/partners/listing/listing.component';
 import { AddPartnerComponent } from './pages/partners/add-partner/add-partner.component';
 import { EditPartnerComponent } from './pages/partners/edit-partner/edit-partner.component';
 import { ManageMenuComponent, DialogNewCategory, DeleteCategory, NoCategorySelected } from './pages/manage-menu/manage-menu.component';
@@ -77,6 +80,7 @@ import { MenuManagerService } from './service/menu-manager/menu-manager.service'
     CustomersComponent,
     FinancialsComponent,
     PartnerListingComponent,
+    PartnerStatus,
     AddPartnerComponent,
     EditPartnerComponent,
     ManageMenuComponent,
@@ -90,7 +94,7 @@ import { MenuManagerService } from './service/menu-manager/menu-manager.service'
     DeleteProduct,
     ManageMenuItemComponent
   ],
-  entryComponents: [DialogNewCategory, ViewTransaction, DeleteCategory, DeleteProduct],
+  entryComponents: [PartnerStatus, DialogNewCategory, ViewTransaction, DeleteCategory, DeleteProduct],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -115,7 +119,9 @@ import { MenuManagerService } from './service/menu-manager/menu-manager.service'
     MatDialogModule,
     MatSlideToggleModule,
     AmazingTimePickerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatFormFieldModule,
+    NgxMatSelectSearchModule
   ],
   providers: [
     ConstantsService,

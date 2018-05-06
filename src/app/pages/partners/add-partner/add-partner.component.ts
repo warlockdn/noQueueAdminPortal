@@ -17,10 +17,13 @@ export class AddPartnerComponent {
   partnerForm: FormGroup;
   @ViewChild('gmap') gmapElement: any;
   map: google.maps.Map;
-
+  fileToUpload: File = null;
+  partnerLogo = null;
+  isLoading: Boolean = false;
   actionButtons: boolean = true;
   isAdding: boolean = true;
   cuisines: any;
+  weekdays: Array<String> = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   response: Object = { username: '', password: '', name: '' };
 
   constructor(private partner: PartnerService, private fb: FormBuilder, private router: Router) { 
@@ -44,6 +47,7 @@ export class AddPartnerComponent {
       email: new FormControl('', [Validators.required, Validators.email]),
       phone: new FormControl(null, [Validators.required]),
       alternate: new FormControl(''),
+      imageid: new FormControl(''),
       location: this.fb.group({
         latitude: new FormControl('', Validators.required),
         longitude: new FormControl('', Validators.required)
@@ -154,15 +158,42 @@ export class AddPartnerComponent {
     })   
   }
 
+  selectAll() {
+    // this.partnerForm.controls.weektiming.up
+  }
+
   addNew() {
     this.partnerForm.reset();
     this.partnerForm.markAsUntouched();
     this.isAdding = true;
   }
 
+  manageMenu() {
+    this.router.navigate(['manage-menu', this.response["username"]]);
+  }
+
   cancel() {
     this.partnerForm.reset();
     this.router.navigate(['partner', 'all']);
+  }
+
+  handleUpload(files: FileList, event) {
+    this.fileToUpload = files.item(0);
+    if (this.fileToUpload) {
+      this.isLoading = true;
+      console.log(this.fileToUpload);
+      this.partner.uploadPartnerLogo(this.fileToUpload).subscribe(data => {
+        this.partnerLogo = data["url"];
+        // Patch value to imageid in Form.
+        this.partnerForm.patchValue({
+          imageid: data["imageid"]
+        });
+        event.target.value = '';
+        this.isLoading = false;
+      }, error => {
+        console.log(error);
+      })
+    }
   }
 
 }
