@@ -32,18 +32,233 @@ export class ManageMenuComponent implements OnInit {
 
   ngOnInit() {
 
-    const partnerID = this.route.snapshot.params.partnerid.toString();
+    /* const partnerID = this.route.snapshot.params.partnerid.toString();
     
     this.menuService.fetchMenu(partnerID).then((success) => {
       this.menuService.menu = success.data;
       this.menuService.saveMenu(success.data);
     }).catch((err) => {
       console.log(err)
-    })
+    }) */
+
+    this.menuService.menu = [{
+      "name": "Italian",
+      "isMain": true,
+      "items": [{
+          "name": "Pizza",
+          "items": [{
+              "name": "Farmhouse",
+              "price": "200",
+              "isNonVeg": false,
+              "description": "",
+              "isEnabled": true,
+              "hasAddons": true,
+              "addons": {
+                  "quantity": [{
+                      "title": "Small",
+                      "price": 0,
+                      "isNonVeg": false
+                  }, {
+                      "title": "Med",
+                      "price": 50,
+                      "isNonVeg": false
+                  }, {
+                      "title": "Large",
+                      "price": 100,
+                      "isNonVeg": false
+                  }],
+                  "extras": [{
+                      "title": "Cheese",
+                      "price": 50,
+                      "isNonVeg": false
+                  }, {
+                      "title": "Paneer",
+                      "price": 50,
+                      "isNonVeg": false
+                  }]
+              }
+          }, {
+              "name": "Farmhouse",
+              "price": "200",
+              "isNonVeg": false,
+              "description": "",
+              "isEnabled": true,
+              "hasAddons": true,
+              "addons": {
+                  "quantity": [{
+                      "title": "Small",
+                      "price": 0,
+                      "isNonVeg": false
+                  }, {
+                      "title": "Med",
+                      "price": 50,
+                      "isNonVeg": false
+                  }, {
+                      "title": "Large",
+                      "price": 100,
+                      "isNonVeg": false
+                  }],
+                  "extras": [{
+                      "title": "Cheese",
+                      "price": 50,
+                      "isNonVeg": false
+                  }, {
+                      "title": "Paneer",
+                      "price": 50,
+                      "isNonVeg": false
+                  }]
+              }
+          }]
+      }, {
+          "name": "Delicasy",
+          "items": [{
+              "name": "Farmhouse",
+              "price": "200",
+              "isNonVeg": false,
+              "description": "",
+              "isEnabled": true,
+              "hasAddons": true,
+              "addons": {
+                  "quantity": [{
+                      "title": "Small",
+                      "price": 0,
+                      "isNonVeg": false
+                  }, {
+                      "title": "Med",
+                      "price": 50,
+                      "isNonVeg": false
+                  }, {
+                      "title": "Large",
+                      "price": 100,
+                      "isNonVeg": false
+                  }],
+                  "extras": [{
+                      "title": "Cheese",
+                      "price": 50,
+                      "isNonVeg": false
+                  }, {
+                      "title": "Paneer",
+                      "price": 50,
+                      "isNonVeg": false
+                  }]
+              }
+          }, {
+              "name": "Farmhouse",
+              "price": "200",
+              "isNonVeg": false,
+              "description": "",
+              "isEnabled": true,
+              "hasAddons": true,
+              "addons": {
+                  "quantity": [{
+                      "title": "Small",
+                      "price": 0,
+                      "isNonVeg": false
+                  }, {
+                      "title": "Med",
+                      "price": 50,
+                      "isNonVeg": false
+                  }, {
+                      "title": "Large",
+                      "price": 100,
+                      "isNonVeg": false
+                  }],
+                  "extras": [{
+                      "title": "Cheese",
+                      "price": 50,
+                      "isNonVeg": false
+                  }, {
+                      "title": "Paneer",
+                      "price": 50,
+                      "isNonVeg": false
+                  }]
+              }
+          }]
+      }]
+    }, {
+        "name": "Pasta",
+        "items": [{
+            "name": "Alfredo",
+            "price": "200",
+            "isNonVeg": false,
+            "description": "",
+            "isEnabled": true,
+            "hasAddons": true,
+            "addons": {
+                "quantity": [{
+                    "title": "Small",
+                    "price": 0,
+                    "isNonVeg": false
+                }, {
+                    "title": "Med",
+                    "price": 50,
+                    "isNonVeg": false
+                }, {
+                    "title": "Large",
+                    "price": 100,
+                    "isNonVeg": false
+                }],
+                "extras": [{
+                    "title": "Cheese",
+                    "price": 50,
+                    "isNonVeg": false
+                }, {
+                    "title": "Paneer",
+                    "price": 50,
+                    "isNonVeg": false
+                }]
+            }
+        }, {
+            "name": "White Sauce",
+            "price": "200",
+            "isNonVeg": false,
+            "description": "",
+            "isEnabled": true,
+            "hasAddons": true,
+            "addons": {
+                "quantity": [{
+                    "title": "Small",
+                    "price": 0,
+                    "isNonVeg": false
+                }, {
+                    "title": "Med",
+                    "price": 50,
+                    "isNonVeg": false
+                }, {
+                    "title": "Large",
+                    "price": 100,
+                    "isNonVeg": false
+                }],
+                "extras": [{
+                    "title": "Cheese",
+                    "price": 50,
+                    "isNonVeg": false
+                }, {
+                    "title": "Paneer",
+                    "price": 50,
+                    "isNonVeg": false
+                }]
+            }
+        }]
+    }];
+
+    this.menuService.saveMenu(this.menuService.menu);
 
   }
 
-  openEditDialog(type, item, index): void {
+  deselectAll() {
+    // Deselect all menu's
+    this.menuService.menu.map((item) => {
+      delete item.selected;
+      if (item.items) {
+        item.items.map((item) => {
+          delete item.selected;
+        })
+      }
+    });
+  }
+
+  openEditDialog(type, item, index, subIndex): void {
 
     // Stop parent function to run
     event.stopPropagation();
@@ -59,13 +274,20 @@ export class ManageMenuComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.menuService.editCategory(result.index, result.name)
+        if (subIndex !== null) {
+          this.menuService.editSubCategory(index, subIndex, result.name);
+        } else {
+          this.menuService.editCategory(result.index, result.name);
+        }
       }
     });
   }
 
   // Create New Category
-  createCategory(type): void {
+  createCategory(type, item, index): void {
+
+    // Stop parent function to run
+    event.stopPropagation();
 
     const dialogRef = this.dialog.open(DialogNewCategory, {
       width: '250px',
@@ -75,16 +297,28 @@ export class ManageMenuComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.menuService.createCategory({
-          name: result.name.toString()
-        });
+      if (result && result.name) {
+        if (item === null) { // Create Normal Category
+          this.menuService.createCategory({
+            name: result.name.toString(),
+            isNew: true
+          });
+        } else { // Create Sub Category
+          this.menuService.createSubCategory({
+            name: result.name.toString()
+          }, index)
+
+          // Convert Item to Main
+          item.isMain = true;
+          delete item.isNew;
+          delete item.selected;
+        }
       }
     });
 
   }
 
-  deleteCategory(item, index) {
+  deleteCategory(item, index, subIndex) {
 
     // Stop parent function to run
     event.stopPropagation();
@@ -99,8 +333,12 @@ export class ManageMenuComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result.status) {
-        this.menuService.deleteCategory(result.index)
+      if(result) {
+        if (subIndex !== null) {
+          this.menuService.deleteSubCategory(result.index, subIndex);
+        } else {
+          this.menuService.deleteCategory(result.index);
+        }
         // Bring back to Idle state (none selected).
         if (item.selected) {
           this.isCategorySelected = false;
@@ -110,16 +348,32 @@ export class ManageMenuComponent implements OnInit {
 
   }
 
-  loadCategory(item) {
-    console.log('Loading Category');
+  loadCategory(item, isChild, event) {
+    
+    event.stopPropagation();
 
+    if (item.isMain && item.isNew !== true) {
+      return;
+    }
+
+    // Reset Selected first.
+    item.selected = false;
+    this.isCategorySelected = false;
+
+    console.log('Loading Category');
+    
     // Deselect all menu's
     this.menuService.menu.map((item) => {
-      item.selected = false;
+      delete item.selected;
+      if (item.items) {
+        item.items.map((item) => {
+          delete item.selected;
+        })
+      }
     });
 
     item.selected = true;
-    this.menuService.loadCategory(item);
+    this.menuService.loadCategory(item, isChild);
     
     // Show Category Data
     this.isCategorySelected = true;
@@ -177,8 +431,6 @@ export class DialogNewCategory {
   onNoClick(): void {
     this.dialogRef.close();
   }
-
-
 
 }
 

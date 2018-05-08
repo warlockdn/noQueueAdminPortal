@@ -50,14 +50,14 @@
               <mat-slide-toggle formControlName="isNonVeg"></mat-slide-toggle>
             </div>
             <div class="col col-2 align-self-center">
-              <button mat-icon-button color="warn" class="mat-elevation-z0" type="button">
+              <button mat-icon-button color="warn" type="button">
                 <mat-icon class="ion-android-close" (click)="deleteQuantity(i)"></mat-icon>
               </button>
             </div>
           </div>
           <div class="d-flex justify-content-center">
-            <button mat-icon-button class="mat-elevation-z0 mr-2" type="button">
-              <mat-icon class="ion-plus-round" (click)="addQuantity(null)"></mat-icon>
+            <button mat-icon-button class="mr-2" type="button" (click)="addQuantity(null)">
+              <mat-icon class="ion-plus-round"></mat-icon>
             </button>
           </div>
         </div>
@@ -97,8 +97,8 @@
             </div>
           </div>
           <div class="d-flex justify-content-center">
-            <button mat-icon-button class="mat-elevation-z0 mr-2" type="button">
-              <mat-icon class="ion-plus-round" (click)="addExtra(extras.controls)"></mat-icon>
+            <button mat-icon-button class="mat-elevation-z0 mr-2" type="button" (click)="addExtra(extras.controls)">
+              <mat-icon class="ion-plus-round"></mat-icon>
             </button>
           </div>
         </div>

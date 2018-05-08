@@ -19,21 +19,22 @@ export class ManageCategoryComponent implements OnInit {
   }
 
   addNewItem() {
-    this.menuService.loadItem(null, 'new');
-    this.menuService.isAdding = true;    
+    this.menuService.loadItem(null, null, 'new');
+    this.menuService.itemSelectedIndex = null;
+    this.menuService.isAdding = true;
   }
 
   copyItem(item) {
     this.menuService.copyItem(item);
   }
 
-  editItem(item) {
-    this.menuService.loadItem(item, 'edit');
+  editItem(item, index) {
+    this.menuService.loadItem(item, index,'edit');
+    this.menuService.itemSelectedIndex = index;
     this.menuService.isAdding = true;
   }
 
   deleteItem(item, index) {
-    debugger;
     const dialogRef = this.dialog.open(DeleteProduct, {
       width: '250px',
       data: index
@@ -41,6 +42,7 @@ export class ManageCategoryComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result.index) {
         this.menuService.deleteItem(result.index);
+        this.menuService.itemSelectedIndex = null;
       }
     });
   }

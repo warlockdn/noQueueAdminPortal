@@ -12,30 +12,50 @@
       </div>
       <div class="clearfix"></div>
 
-      <h3 class="title">Promotional</h3>
+      <!-- <h3 class="title">Promotional</h3>
       <ul class="category font-weight-bold" style="opacity: 0.3; pointer-events: none">
         <li>Recommended</li>
         <li>Popular</li>
-      </ul>
+      </ul> -->
 
       <h3 class="title">Food Menu</h3>
-      <ul class="category mb-5">
-
-        <li *ngFor="let item of menuService.menu; let i = index" (click)="loadCategory(item)" >
+      <ul class="category">
+        <!-- <li *ngFor="let item of menuService.menu; let i = index" (click)="loadCategory(item)"> -->
+        <li *ngFor="let item of menuService.menu; let i = index" 
+        [ngClass]="[item.isMain ? 'has-sub' : '', item.selected ? 'selected' : '']"
+        (click)="loadCategory(item, false, $event)">
           {{ item.name }}
           <div class="float-right">
-            <button mat-icon-button type="button">
-              <mat-icon class="ion-edit" (click)="openEditDialog('edit', item, i)"></mat-icon>
+            <button mat-icon-button type="button" *ngIf="item.isMain || item.isNew" (click)="createCategory('new', item, i)">
+              <mat-icon class="ion-plus-round"></mat-icon>
             </button>
-            <button mat-icon-button type="button">
-              <mat-icon class="ion-trash-b" (click)="deleteCategory(item, i)"></mat-icon>
+            <button mat-icon-button type="button" (click)="openEditDialog('edit', item, i, null)">
+              <mat-icon class="ion-edit"></mat-icon>
+            </button>
+            <button mat-icon-button type="button" (click)="deleteCategory(item, i, null)">
+              <mat-icon class="ion-trash-b"></mat-icon>
             </button>
           </div>
+          <ul *ngIf="item.isMain" class="sub">
+            <li *ngFor="let subitem of item.items; let j = index" 
+            [ngClass]="subitem.selected ? 'selected' : ''"
+            (click)="loadCategory(subitem, true, $event)">
+              {{ subitem.name }}
+              <div class="float-right">
+                <button mat-icon-button type="button">
+                  <mat-icon class="ion-edit" (click)="openEditDialog('edit', subitem, i, j)"></mat-icon>
+                </button>
+                <button mat-icon-button type="button">
+                  <mat-icon class="ion-trash-b" (click)="deleteCategory(subitem, i, j)"></mat-icon>
+                </button>
+              </div>
+            </li>
+          </ul>
         </li>
 
       </ul>
 
-      <button mat-raised-button class="sticky-bottom" color="primary" (click)="createCategory('new')" block>CREATE CATEGORY</button>
+      <button mat-raised-button class="sticky-bottom" color="primary" (click)="createCategory('new', null, null)" block>CREATE CATEGORY</button>
 
     </div>
 

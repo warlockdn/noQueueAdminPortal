@@ -172,13 +172,13 @@ export class ManageMenuItemComponent implements OnInit {
     </div>    
     <div #item></div>
     <div class="d-flex justify-content-end">
-      <button mat-icon-button color="warn" class="mat-elevation-z0 mr-2" type="button" *ngIf="isEditable">
+      <button mat-icon-button color="warn" class=" mr-2" type="button" *ngIf="isEditable">
         <mat-icon class="ion-trash-b" (click)="deleteCustomization()"></mat-icon>
       </button>
-      <button mat-icon-button class="mat-elevation-z0 mr-2" type="button">
+      <button mat-icon-button class=" mr-2" type="button">
         <mat-icon class="ion-plus-round" (click)="addItem()"></mat-icon>
       </button>
-      <button mat-icon-button color="green" class="mat-elevation-z0" type="button">
+      <button mat-icon-button color="green" class="" type="button">
         <mat-icon class="ion-checkmark" (click)="saveCustomization()"></mat-icon>
       </button>
     </div>
@@ -236,7 +236,7 @@ export class AddCustomizationComponent implements OnInit {
         <mat-slide-toggle></mat-slide-toggle>
       </div>
       <div class="col col-2 align-self-center">
-        <button mat-icon-button color="warn" class="mat-elevation-z0" type="button">
+        <button mat-icon-button color="warn" class="" type="button">
           <mat-icon class="ion-android-close" (click)="deleteItem()"></mat-icon>
         </button>
       </div>

@@ -27,7 +27,15 @@ export class MenuManagerService {
 
   public menu;
   public categorySelected: Category;
+
+  // Item and Index are helpers for the category selected.
+  // Holds the value of the Category that is selected.
   public itemSelected: Object = {};
+  public itemSelectedIndex: number;
+  
+  // If the Category loaded is a Child Category;
+  public isChild: Boolean = false;
+  
   public isAdding: boolean = false;
 
   constructor(private router: Router, private http: HttpClient) {}
@@ -362,7 +370,7 @@ export class MenuManagerService {
 
   fetchMenu(partnerID) {
     return new Promise((resolve: (success) => void, reject: (reason: Error) => void) => {
-      this.http.get(`${ConstantsService.partner}${partnerID}/menu`).subscribe(
+      this.http.get(`${ConstantsService.partner}/${partnerID}/menu`).subscribe(
         response => {
           resolve(response)
         }, error => {
@@ -379,7 +387,7 @@ export class MenuManagerService {
     */
   uploadMenu(partnerID, type) {
     return new Promise((resolve: (success) => void, reject: (reason: Error) => void) => {
-      this.http.post(`${ConstantsService.partner}${partnerID}/menu`, 
+      this.http.post(`${ConstantsService.partner}/${partnerID}/menu`, 
         { 
           menu: this.getMenu(), 
           type: type
@@ -401,16 +409,21 @@ export class MenuManagerService {
     return JSON.parse(localStorage.getItem('menu'));
   }
 
-  loadCategory(item: Category) {
+  loadCategory(item: Category, isChild: Boolean) {
     this.categorySelected = item;
+    this.isChild = isChild;
   }
 
-  getItem() {
-    
-  }
+  getItem() {}
 
   createCategory(category) {
+    category.items = [];
     this.menu.push(category);
+    this.saveMenu(this.menu);
+  }
+
+  createSubCategory(category, index) {
+    this.menu[index]["items"].push(category);
     this.saveMenu(this.menu);
   }
 
@@ -421,10 +434,23 @@ export class MenuManagerService {
     this.menu = menu;
   }
 
+  editSubCategory(index, subIndex, name) {
+    let menu = this.getMenu();
+    menu[index].items[subIndex].name = name;
+    this.saveMenu(menu);
+    this.menu = menu;
+  }
+
   deleteCategory(index) {
     let menu = this.getMenu();
     menu.splice(index, 1);
+    this.saveMenu(menu);
+    this.menu = menu;
+  }
 
+  deleteSubCategory(index, subIndex) {
+    let menu = this.getMenu();
+    menu[index]["items"].splice(subIndex, 1);
     this.saveMenu(menu);
     this.menu = menu;
   }
@@ -443,28 +469,63 @@ export class MenuManagerService {
 
     let menu = this.getMenu();
 
-    menu.map((category: Category) => {
-      if (category.name === this.categorySelected.name) {
-        category.items = category.items || [];
-        category.items.push(data);
-        if (!this.categorySelected.items) {
-          this.categorySelected.items = [];
-          this.categorySelected.items.push(data);  
-        } else {
-          this.categorySelected.items.push(data);
-        }
-      }
-    })
-    
-    this.saveMenu(menu);
+    if (!this.isChild) { // Traverse on Items with direct parent.
+      menu.map((category: Category) => {
+        if (category.name === this.categorySelected.name) {
+          category.items = category.items || [];
 
+          // Update the selectedIndex data with the category Items.
+          if (category.items.length > 0 && this.itemSelectedIndex !== null) {
+            category.items[this.itemSelectedIndex] = data;
+            this.categorySelected.items[this.itemSelectedIndex] = data;
+          } else {
+            // New entry so push.
+            let items = category.items || [];
+            items.push(data);
+            this.categorySelected.items = this.categorySelected.items || [];
+            this.categorySelected.items.push(data);  
+          }
+        }
+      })
+
+      this.menu = menu;
+      this.saveMenu(menu);
+
+    } else { // Traverse on Items which is a child
+      menu.map((category: Category) => {
+        category.items.map((category) => {
+          if (category.name === this.categorySelected.name) {
+
+            let items = category.items || [];
+            // Not using !== 0 coz showing error. Temp using > 0
+            if (items.length > 0 && this.itemSelectedIndex !== null) {
+              category.items[this.itemSelectedIndex] = data;
+              this.categorySelected.items[this.itemSelectedIndex] = data;
+            } else {
+              // New entry so push.
+              let items:Array<Object> = category.items || [];
+              items.push(data);
+              this.categorySelected.items = this.categorySelected.items || [];
+              this.categorySelected.items.push(data);  
+            }
+          }
+        })
+      })
+
+      this.saveMenu(this.menu);
+
+    }
+    
+    
   }
 
-  loadItem(item, state) {
+  loadItem(item, index, state) {
     if (state === 'new') {
-      this.itemSelected = {}
+      this.itemSelected = {};
+      this.itemSelectedIndex = null;
     } else {
       this.itemSelected = item;
+      this.itemSelectedIndex = index;
     }
   }
 
@@ -485,16 +546,27 @@ export class MenuManagerService {
 
   copyItem(item) {
     this.categorySelected.items.push(item);
-
     let menu = this.getMenu();
 
-    menu.map((category) => {
-      if (category.name === this.categorySelected.name) {
-        category.items.push(item);
-        return;
-      }
-    })
+    if (!this.isChild) { // Copying a Item on a Direct Category
+      menu.map((category) => {
+        if (category.name === this.categorySelected.name) {
+          category.items.push(item);
+          return;
+        }
+      });
+    } else { // Copying a Item on a Sub Category
+      menu.map((category) => {
+        category.items.map((category) => {
+          if (category.name === this.categorySelected.name) {
+            category.items.push(item);
+            return;
+          }
+        })
+      })
+    }
 
+    console.log('Saving Menu');
     this.saveMenu(menu);
   }
 
