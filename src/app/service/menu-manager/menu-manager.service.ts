@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
-import { resolve } from 'url';
-import { reject } from 'q';
 
 import { ConstantsService } from '../constants/constants.service';
 
@@ -26,6 +24,8 @@ export interface Items {
 export class MenuManagerService {
 
   public menu;
+  public categories; 
+  public items;
   public categorySelected: Category;
 
   // Item and Index are helpers for the category selected.
@@ -394,7 +394,7 @@ export class MenuManagerService {
         }).subscribe(
         response => {
           resolve(response)
-        }, error => {          
+        }, error => {
           reject(error)
         }
       )

@@ -1,0 +1,183 @@
+<div class="content">
+  <form [formGroup]="detailsForm" (ngSubmit)="saveItem()">
+    <h3 class="subtitle">Basic Details</h3>
+    <div class="row">
+      <div class="col col-7 col-md-7">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Your Dish Name" formControlName="name">
+        </mat-form-field>
+        <mat-form-field class="mr-4">
+          <input matInput placeholder="Base Price" formControlName="price" type="number">
+        </mat-form-field>
+        <mat-checkbox formControlName="isNonVeg">Is Non-Veg</mat-checkbox>
+        <mat-form-field class="full-width">
+          <textarea matInput cols="30" rows="3" placeholder="Description" formControlName="description"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="col col-1 col-md-1"></div>
+      <div class="col col-4 col-md-4 thumbnail text-center">
+        <input type="file" />
+      </div>
+    </div>
+  </form>
+
+  <br/>
+  <br/>
+
+  <div class="row">
+    <div class="col col-12 col-md-9 offset-md-1 mb-4">
+      <form [formGroup]="quantityForm">
+        <h3 class="subtitle">Available Quantities</h3>
+        <div class="wrapper" formArrayName="quantities">
+          <div class="row header">
+            <div class="col col-6">Title</div>
+            <div class="col col-2">Diff. Price</div>
+            <div class="col col-2 text-center">Non-Veg</div>
+            <div class="col col-2"></div>
+          </div>
+          <div class="row body" *ngFor="let quantity of quantities.controls; let i=index" [formGroupName]="i">
+            <div class="col col-6">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Quantity Title" formControlName="name" required>
+              </mat-form-field>
+            </div>
+            <div class="col col-2">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Price" type="number" formControlName="price" required>
+              </mat-form-field>
+            </div>
+            <div class="col col-2 align-self-center text-center">
+              <mat-slide-toggle formControlName="isNonVeg"></mat-slide-toggle>
+            </div>
+            <div class="col col-2 align-self-center">
+              <button mat-icon-button color="warn" type="button">
+                <mat-icon class="ion-android-close" (click)="deleteQuantity(i)"></mat-icon>
+              </button>
+            </div>
+          </div>
+          <div class="d-flex justify-content-center">
+            <button mat-icon-button class="mr-2" type="button" (click)="addQuantity(null)">
+              <mat-icon class="ion-plus-round"></mat-icon>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col col-12 col-md-9 offset-md-1 mb-4">
+      <form [formGroup]="extrasForm">
+        <h3 class="subtitle">Extras</h3>
+        <div class="wrapper" formArrayName="extras">
+          <div class="row header">
+            <div class="col col-6">Title</div>
+            <div class="col col-2">Diff. Price</div>
+            <div class="col col-2 text-center">Non-Veg</div>
+            <div class="col col-2"></div>
+          </div>
+          <div class="row body" *ngFor="let extra of extras.controls; let i=index" [formGroupName]="i">
+            <div class="col col-6">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Extra's Title" formControlName="name" required>
+              </mat-form-field>
+            </div>
+            <div class="col col-2">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Price" type="number" formControlName="price" required>
+              </mat-form-field>
+            </div>
+            <div class="col col-2 align-self-center text-center">
+              <mat-slide-toggle formControlName="isNonVeg"></mat-slide-toggle>
+            </div>
+            <div class="col col-2 align-self-center">
+              <button mat-icon-button color="warn" class="mat-elevation-z0" type="button">
+                <mat-icon class="ion-android-close" (click)="deleteExtras(i)"></mat-icon>
+              </button>
+            </div>
+          </div>
+          <div class="d-flex justify-content-center">
+            <button mat-icon-button class="mat-elevation-z0 mr-2" type="button" (click)="addExtra(extras.controls)">
+              <mat-icon class="ion-plus-round"></mat-icon>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <!-- <div class="row">
+    <div class="col col-12 col-md-9 offset-md-1 mb-4">
+        <h3 class="subtitle">Extras</h3>
+        <div class="wrapper">
+          <div class="row header">
+            <div class="col col-6">Title</div>
+            <div class="col col-2">Diff. Price</div>
+            <div class="col col-2 text-center">Non-Veg</div>
+            <div class="col col-2"></div>
+          </div>
+          <div class="row body">
+            <div class="col col-6">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Quantity Title">
+              </mat-form-field>
+            </div>
+            <div class="col col-2">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Price">
+              </mat-form-field>
+            </div>
+            <div class="col col-2 align-self-center text-center">
+              <mat-slide-toggle></mat-slide-toggle>
+            </div>
+            <div class="col col-2 align-self-center">
+              <button mat-icon-button color="warn" class="mat-elevation-z0" type="button">
+                <mat-icon class="ion-android-close" (click)="deleteItem()"></mat-icon>
+              </button>
+            </div>
+          </div>
+          <div class="row body">
+            <div class="col col-6">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Quantity Title">
+              </mat-form-field>
+            </div>
+            <div class="col col-2">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Price">
+              </mat-form-field>
+            </div>
+            <div class="col col-2 align-self-center text-center">
+              <mat-slide-toggle></mat-slide-toggle>
+            </div>
+            <div class="col col-2 align-self-center">
+              <button mat-icon-button color="warn" class="mat-elevation-z0" type="button">
+                <mat-icon class="ion-android-close" (click)="deleteItem()"></mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div> -->
+
+  <div class="row">
+  </div>
+
+  <!-- <div class="row">
+    <div class="col col-12 col-md-12 mb-4">
+      <div class="add-customization d-flex align-items-center" (click)="addNewCustomization('Customize', true)">
+        <div>
+          <mat-icon class="ion-ios-plus-empty"></mat-icon>
+          <br/> Add New Customization</div>
+      </div>
+    </div>
+  </div> -->
+
+</div>
+
+<div class="m-auto d-flex" style="width: 400px">
+  <button (click)="saveItem()"
+    mat-raised-button block color="green" 
+    class="mt-4 mb-4 mr-4" [disabled]="detailsForm.invalid">Save Item</button>
+  <button mat-raised-button block color="warn" class="mt-4 mb-4" (click)="cancel()">Cancel</button>
+</div>

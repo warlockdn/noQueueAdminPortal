@@ -32,16 +32,16 @@ export class ManageMenuComponent implements OnInit {
 
   ngOnInit() {
 
-    /* const partnerID = this.route.snapshot.params.partnerid.toString();
+    const partnerID = this.route.snapshot.params.partnerid.toString();
     
     this.menuService.fetchMenu(partnerID).then((success) => {
       this.menuService.menu = success.data;
       this.menuService.saveMenu(success.data);
     }).catch((err) => {
       console.log(err)
-    }) */
+    })
 
-    this.menuService.menu = [{
+    /* this.menuService.menu = [{
       "name": "Italian",
       "isMain": true,
       "items": [{
@@ -242,7 +242,7 @@ export class ManageMenuComponent implements OnInit {
         }]
     }];
 
-    this.menuService.saveMenu(this.menuService.menu);
+    this.menuService.saveMenu(this.menuService.menu); */
 
   }
 
@@ -474,7 +474,7 @@ export class DeleteCategory {
     <div class="empty d-flex align-items-center justify-content-center flex-column text-center">
       <mat-icon class="ion-ios-information"></mat-icon>
       <p>
-        Select a Category from Left Panel
+        Select a Category or Item from Left Panel
         <br>
         to Manage Menu
       </p>

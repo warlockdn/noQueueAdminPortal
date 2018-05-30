@@ -1,0 +1,14 @@
+<h3>Select Items</h3>
+
+<section class="selection-area">
+  <mat-selection-list class="no-scroll" #itemsList [(ngModel)]="selectedItems">
+    <mat-list-option *ngFor="let item of items" [value]="item" [selected]="item.selected">
+      {{ item.name }}
+    </mat-list-option>
+  </mat-selection-list>
+</section>
+
+<div class="float-right mt-3">
+    <button mat-button class="mr-2" color="warn" (click)="close()">Cancel</button>
+    <button mat-raised-button color="dark-green" no-shadow (click)="confirm()">Confirm</button>
+</div>

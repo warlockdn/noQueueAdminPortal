@@ -19,4 +19,5 @@
         "yml"
     ],
     "editor.fontSize": 13,
+    "editor.fontFamily": "'Hack Regular', 'monospace', monospace, 'Droid Sans Fallback'",
 }

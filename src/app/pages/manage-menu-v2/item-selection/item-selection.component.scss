@@ -1,0 +1,18 @@
+:host {
+    h3 {
+
+    }
+    section.selection-area {
+        mat-selection-list {
+            outline: 0;
+            min-height: 250px;
+        }
+    }
+    mat-pseudo-checkbox{
+        .mat-pseudo-checkbox-checked::after {
+            top: 5px !important;
+            left: 3px !important;
+            width: 12px !important;
+        }
+    }
+}

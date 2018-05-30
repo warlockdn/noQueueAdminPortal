@@ -1,0 +1,101 @@
+<div class="container-fluid">
+  <div class="row">
+
+    <!-- Sidemenu - Categories -->
+    <div class="col col-3 col-sm-3 pr-2 pl-2 border-right no-scroll">
+      
+      <div class="float-right">
+          <button mat-button class="mr-2" (click)="uploadMenu('draft')" [disabled]="isDisabled">Save Draft</button>
+          <button mat-raised-button color="dark-green" no-shadow (click)="uploadMenu('publish')" [disabled]="isDisabled">
+            Publish
+          </button>
+      </div>
+      <div class="clearfix"></div>
+
+      <mat-tab-group (selectedTabChange)="loadType($event)">
+        <mat-tab label="Items">
+          <div class="tab-content no-scroll">
+
+            <!-- <div class="search">
+              <input type="text" placeholder="Search Items">
+            </div> -->
+
+            <!-- <h3 class="title">Promotional</h3>
+            <ul class="category font-weight-bold" style="opacity: 0.3; pointer-events: none">
+              <li>Recommended</li>
+              <li>Popular</li>
+            </ul> -->
+      
+            <h3 class="title">Food Menu</h3>
+            <ul class="category">
+              <li *ngFor="let item of menuServiceV2.items; let i = index" (click)="loadItem(item)">
+                {{ item.name }}
+                <div class="float-right">
+                  <!-- <button mat-icon-button type="button" (click)="openEditDialog('edit', category, i, null)">
+                    <mat-icon class="ion-edit"></mat-icon>
+                  </button> -->
+                  <button mat-icon-button type="button" (click)="deleteItem(item)">
+                    <mat-icon class="ion-trash-b"></mat-icon>
+                  </button>
+                </div>
+              </li>
+            </ul>
+      
+            <button mat-raised-button class="sticky-bottom" color="primary" (click)="createItem('new', null)" [disabled]="menuServiceV2.showItem" block>CREATE ITEM</button>
+          </div>
+        </mat-tab>
+        <mat-tab label="Categories">
+          <div class="tab-content no-scroll">
+
+            <ul class="category">
+              <li *ngFor="let collection of menuServiceV2.collections; let i = index" 
+              [ngClass]="[collection.subcollection ? 'has-sub' : '', collection.selected ? 'selected' : '']"
+              (click)="loadCategory(collection, i, null, false, $event)">
+                {{ collection.name }}
+                <div class="float-right">
+                  <button mat-icon-button type="button" *ngIf="!collection.items" (click)="createCategory('new', collection, i)">
+                    <mat-icon class="ion-plus-round"></mat-icon>
+                  </button>
+                  <button mat-icon-button type="button" (click)="openEditDialog('edit', collection, i, null)">
+                    <mat-icon class="ion-edit"></mat-icon>
+                  </button>
+                  <button mat-icon-button type="button" (click)="deleteCategory(collection, i, null)">
+                    <mat-icon class="ion-trash-b"></mat-icon>
+                  </button>
+                </div>
+                <ul *ngIf="collection.subcollection" class="sub">
+                  <li *ngFor="let subcollection of collection.subcollection; let j = index" 
+                  [ngClass]="subcollection.selected ? 'selected' : ''"
+                  (click)="loadCategory(subcollection, i, j, true, $event)">
+                    {{ subcollection.name }}
+                    <div class="float-right">
+                      <button mat-icon-button type="button">
+                        <mat-icon class="ion-edit" (click)="openEditDialog('edit', subcollection, i, j)"></mat-icon>
+                      </button>
+                      <button mat-icon-button type="button">
+                        <mat-icon class="ion-trash-b" (click)="deleteCategory(subcollection, i, j)"></mat-icon>
+                      </button>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <button mat-raised-button class="sticky-bottom" color="primary" (click)="createCategory('new', null, null)" block>CREATE CATEGORY</button>
+
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+
+    </div>
+
+    <!-- Main Playing Body -->
+    <div class="col col-9 col-sm-9 main-section no-scroll">
+
+      <!-- Empty Section -->
+      <empty-selection *ngIf="menuServiceV2.showEmpty"></empty-selection>      
+      <manage-items-v2 *ngIf="menuServiceV2.showItem"></manage-items-v2>
+      <manage-category-v2 *ngIf="menuServiceV2.showCategory"></manage-category-v2>
+    </div>
+
+  </div>
+</div>

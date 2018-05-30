@@ -18,6 +18,8 @@ export class ManageMenuItemComponent implements OnInit {
     private fb: FormBuilder, private menuService: MenuManagerService) {
       
     this.menuItem = this.menuService.itemSelected;
+
+    
     
     this.createDetailsForm();
     this.createQuantityForm();

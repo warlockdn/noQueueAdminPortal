@@ -93,7 +93,7 @@ export class PartnerListingComponent implements OnInit {
   }
 
   manageMenu(partnerID) {
-    this.router.navigate(['manage-menu', partnerID]);
+    this.router.navigate(['menu', partnerID]);
   }
 
   setStatus(partner) {

@@ -1,0 +1,37 @@
+<h2 class="title">
+  {{ menuServicev2.collectionSelected.name }}
+</h2>
+
+<div class="content">
+  <div class="viewing">
+
+    <ul class="menu-list mt-4 mb-5 list-unstyled" *ngIf="menuServicev2.collectionSelected.items">
+      <li [ngClass]="(item.isNonVeg==false)?'veg':'nonveg'" *ngFor="let item of menuServicev2.collectionSelected.items; let i = index">
+        <i></i>
+        {{ item.name }}
+        <div class="float-right action">
+          <div class="d-inline-block price">
+            <span>{{ common.currency }}</span> {{ item.price }}</div>
+          <!-- <button mat-icon-button (click)="copyItem(item)">
+            <mat-icon class="ion-ios-copy"></mat-icon>
+          </button>
+          <button mat-icon-button (click)="editItem(item, i)">
+            <mat-icon class="ion-edit"></mat-icon>
+          </button> -->
+          <button mat-icon-button (click)="deleteItem(i)">
+            <mat-icon class="ion-trash-b"></mat-icon>
+          </button>
+        </div>
+      </li>
+    </ul>
+  
+    <div class="add-item mt-5">
+      <p class="font-weight-bold text-center mt-4 mb-4">Click on the Plus Icon
+        <br/> to add a new menu item</p>
+      <div class="add-icon text-center" (click)="addNewItem()">
+        <mat-icon class="ion-ios-plus-empty"></mat-icon>
+      </div>
+    </div>
+  </div>
+
+</div>

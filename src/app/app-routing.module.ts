@@ -12,6 +12,8 @@ import { AddPartnerComponent } from './pages/partners/add-partner/add-partner.co
 import { EditPartnerComponent } from './pages/partners/edit-partner/edit-partner.component';
 import { ManageMenuComponent } from './pages/manage-menu/manage-menu.component';
 
+import { ManageMenuV2Component } from '../app/pages/manage-menu-v2/manage-menu-v2/manage-menu-v2.component';
+
 import { CustomersComponent } from './pages/customers/customers.component';
 
 import { FinancialsComponent } from './pages/financials/financials.component';
@@ -35,6 +37,11 @@ const routes: Routes = [
     },
     { path: 'manage-menu', redirectTo: 'dashboard', pathMatch: 'full' },
     { path: 'manage-menu/:partnerid', component: ManageMenuComponent },
+
+    // Manage Menu v2
+    { path: 'menu', redirectTo: 'dashboard', pathMatch: 'full' },
+    { path: 'menu/:partnerid', component: ManageMenuV2Component },
+
     { path: 'customers', component: CustomersComponent },
     { path: 'finance-core', component: FinancialsComponent,
         children: [
