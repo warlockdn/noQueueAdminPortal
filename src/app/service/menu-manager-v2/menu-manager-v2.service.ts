@@ -267,7 +267,6 @@ export class MenuManagerV2Service {
   createSubCollection(subcollection: SubCollection, parentIndex) {
     let collections = this.getCollections();
     if (typeof collections[parentIndex].subcollection === 'undefined') {
-      console.log(typeof collections[parentIndex].subcollection);
       collections[parentIndex].subcollection = new Array();
     }
     collections[parentIndex].subcollection.push(subcollection);
@@ -317,28 +316,30 @@ export class MenuManagerV2Service {
         });
 
       } else { // has subcollection and is a parent
-
-        let subcollection = new Array();
-        collection.subcollection.forEach((sub, index) => {
-
-          let ids = new Array();
-
-          sub.items.forEach(item => {
-            ids.push({
-              id: item.id
+        
+        if (collection.subcollection) {
+          let subcollection = new Array();
+          collection.subcollection.forEach((sub, index) => {
+  
+            let ids = new Array();
+  
+            sub.items.forEach(item => {
+              ids.push({
+                id: item.id
+              });
             });
+  
+            subcollection.push({
+              name: collection.name,
+              items: ids
+            })
           });
-
-          subcollection.push({
+  
+          newCollection.push({
             name: collection.name,
-            items: ids
-          })
-        });
-
-        newCollection.push({
-          name: collection.name,
-          subcollection: subcollection
-        });
+            subcollection: subcollection
+          });
+        }
 
       }
     })

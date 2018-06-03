@@ -107,7 +107,7 @@
         <label class="d-block">Timings</label>
         <mat-form-field>
           <mat-select placeholder="Timings" multiple formControlName="weektiming" required>
-            <mat-option *ngFor="let day of weekdays" value="day">{{ day }}</mat-option>
+            <mat-option *ngFor="let day of weekdays" value="{{ day }}">{{ day }}</mat-option>
           </mat-select>
         </mat-form-field>
 

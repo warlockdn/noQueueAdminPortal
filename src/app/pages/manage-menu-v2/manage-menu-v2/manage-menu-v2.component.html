@@ -13,6 +13,7 @@
       <div class="clearfix"></div>
 
       <mat-tab-group (selectedTabChange)="loadType($event)">
+        
         <mat-tab label="Items">
           <div class="tab-content no-scroll">
 
@@ -34,7 +35,7 @@
                   <!-- <button mat-icon-button type="button" (click)="openEditDialog('edit', category, i, null)">
                     <mat-icon class="ion-edit"></mat-icon>
                   </button> -->
-                  <button mat-icon-button type="button" (click)="deleteItem(item)">
+                  <button mat-icon-button type="button" (click)="deleteItem(item); $event.stopPropagation();">
                     <mat-icon class="ion-trash-b"></mat-icon>
                   </button>
                 </div>
@@ -44,46 +45,48 @@
             <button mat-raised-button class="sticky-bottom" color="primary" (click)="createItem('new', null)" [disabled]="menuServiceV2.showItem" block>CREATE ITEM</button>
           </div>
         </mat-tab>
+
         <mat-tab label="Categories">
           <div class="tab-content no-scroll">
 
             <ul class="category">
               <li *ngFor="let collection of menuServiceV2.collections; let i = index" 
               [ngClass]="[collection.subcollection ? 'has-sub' : '', collection.selected ? 'selected' : '']"
-              (click)="loadCategory(collection, i, null, false, $event)">
+              (click)="loadCategory(collection, i, null, false, $event); $event.stopPropagation();">
                 {{ collection.name }}
                 <div class="float-right">
-                  <button mat-icon-button type="button" *ngIf="!collection.items" (click)="createCategory('new', collection, i)">
+                  <button mat-icon-button type="button" *ngIf="!collection.items" (click)="createCategory('new', collection, i); $event.stopPropagation();">
                     <mat-icon class="ion-plus-round"></mat-icon>
                   </button>
-                  <button mat-icon-button type="button" (click)="openEditDialog('edit', collection, i, null)">
+                  <button mat-icon-button type="button" (click)="openEditDialog('edit', collection, i, null); $event.stopPropagation();">
                     <mat-icon class="ion-edit"></mat-icon>
                   </button>
-                  <button mat-icon-button type="button" (click)="deleteCategory(collection, i, null)">
+                  <button mat-icon-button type="button" (click)="deleteCategory(collection, i, null); $event.stopPropagation();">
                     <mat-icon class="ion-trash-b"></mat-icon>
                   </button>
                 </div>
                 <ul *ngIf="collection.subcollection" class="sub">
                   <li *ngFor="let subcollection of collection.subcollection; let j = index" 
                   [ngClass]="subcollection.selected ? 'selected' : ''"
-                  (click)="loadCategory(subcollection, i, j, true, $event)">
+                  (click)="loadCategory(subcollection, i, j, true, $event); $event.stopPropagation();">
                     {{ subcollection.name }}
                     <div class="float-right">
-                      <button mat-icon-button type="button">
-                        <mat-icon class="ion-edit" (click)="openEditDialog('edit', subcollection, i, j)"></mat-icon>
+                      <button mat-icon-button type="button" (click)="openEditDialog('edit', subcollection, i, j); $event.stopPropagation();">
+                        <mat-icon class="ion-edit"></mat-icon>
                       </button>
-                      <button mat-icon-button type="button">
-                        <mat-icon class="ion-trash-b" (click)="deleteCategory(subcollection, i, j)"></mat-icon>
+                      <button mat-icon-button type="button" (click)="deleteCategory(subcollection, i, j, event); $event.stopPropagation();">
+                        <mat-icon class="ion-trash-b"></mat-icon>
                       </button>
                     </div>
                   </li>
                 </ul>
               </li>
             </ul>
-            <button mat-raised-button class="sticky-bottom" color="primary" (click)="createCategory('new', null, null)" block>CREATE CATEGORY</button>
+            <button mat-raised-button class="sticky-bottom" color="primary" (click)="createCategory('new', null, null); $event.stopPropagation();" block>CREATE CATEGORY</button>
 
           </div>
         </mat-tab>
+
       </mat-tab-group>
 
     </div>

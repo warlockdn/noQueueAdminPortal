@@ -5,7 +5,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Sentry Error Reporting
-/* import * as Raven from 'raven-js';
+
+import * as Raven from 'raven-js';
 
 Raven
   .config('https://d6bc57eccd2f497fb28578476ee8493b@sentry.io/592969')
@@ -15,7 +16,7 @@ export class RavenErrorHandler implements ErrorHandler {
   handleError(err:any) : void {
     Raven.captureException(err);
   }
-} */
+}
 
 import { AppRoutingModule } from './app-routing.module';
 

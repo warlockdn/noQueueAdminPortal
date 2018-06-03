@@ -122,7 +122,7 @@ export class ManageMenuV2Component implements OnInit {
   createCategory(type, item, index): void {
 
     // Stop parent function to run
-    event.stopPropagation();
+    // event.stopPropagation();
     
 
     if (item !== null && item.items) {
@@ -159,7 +159,7 @@ export class ManageMenuV2Component implements OnInit {
   openEditDialog(type, item, index, subIndex): void {
 
     // Stop parent function to run
-    event.stopPropagation();
+    // event.stopPropagation();
 
     const dialogRef = this.dialog.open(DialogNewCategoryV2, {
       width: '250px',
@@ -185,12 +185,11 @@ export class ManageMenuV2Component implements OnInit {
     });
   }
 
-  deleteCategory(item, index, subIndex) {
+  deleteCategory(item, index, subIndex, event) {
 
     // Stop parent function to run
-    event.stopPropagation();
+    // event.stopPropagation();
 
-    console.log('Delete Category', item.name);
     const dialogRef = this.dialog.open(DeleteCategoryV2, {
       width: '250px',
       data: {
@@ -218,7 +217,7 @@ export class ManageMenuV2Component implements OnInit {
 
   loadCategory(item, index, subIndex, isChild, event) {
     
-    event.stopPropagation();
+    // event.stopPropagation();
 
     if (!isChild) {
       if (typeof item.subcollection !== 'undefined') {
@@ -287,7 +286,7 @@ export class ManageMenuV2Component implements OnInit {
   deleteItem(item) {
 
     // Stop parent function to run
-    event.stopPropagation();
+    // event.stopPropagation();
 
     console.log('Delete Item', item.name);
     const dialogRef = this.dialog.open(DeleteCategoryV2, {
@@ -297,7 +296,7 @@ export class ManageMenuV2Component implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
-        this.menuServiceV2.deleteItem(result.itemid)
+        this.menuServiceV2.deleteItem(result.index)
         .then(response => {
           console.log(response);
         })
@@ -444,7 +443,7 @@ export class DeleteCategoryV2 {
 
   delete(): void {
     this.dialogRef.close({
-      index: this.data.index
+      index: this.data.id
     });
   }
 
