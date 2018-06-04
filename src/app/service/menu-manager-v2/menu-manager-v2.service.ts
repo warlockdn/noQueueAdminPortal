@@ -31,7 +31,7 @@ export interface Item {
   hasAddons: boolean,
   isEnabled: boolean,  
   addons?: any,
-  desription?: string,
+  description?: string,
   status?: boolean
   /* [{
       name: string,
@@ -128,7 +128,8 @@ export class MenuManagerV2Service {
       isNonVeg: details.isNonVeg,
       hasAddons: false,
       isEnabled: true,
-      status: false
+      status: false,
+      description: details.description
     }
 
     if (id !== null) {
