@@ -19,7 +19,9 @@ export class AddPartnerComponent {
   map: google.maps.Map;
   fileToUpload: File = null;
   partnerLogo = null;
+  partnerBG = null;
   isLoading: Boolean = false;
+  isLoadingBG: Boolean = false;
   actionButtons: boolean = true;
   isAdding: boolean = true;
   cuisines: any;
@@ -48,6 +50,7 @@ export class AddPartnerComponent {
       phone: new FormControl(null, [Validators.required]),
       alternate: new FormControl(''),
       imageid: new FormControl(''),
+      partnerbg: new FormControl(''),
       location: this.fb.group({
         latitude: new FormControl('', Validators.required),
         longitude: new FormControl('', Validators.required)
@@ -74,6 +77,11 @@ export class AddPartnerComponent {
         bankname: new FormControl('', Validators.required),
         branch: new FormControl('', Validators.required),
         ifsc: new FormControl('', Validators.required),
+      }),
+      taxInfo: this.fb.group({
+        cgst: new FormControl(2.5),
+        sgst: new FormControl(2.5),
+        servicetax: new FormControl(),
       })
     })
   }
@@ -177,22 +185,48 @@ export class AddPartnerComponent {
     this.router.navigate(['partner', 'all']);
   }
 
-  handleUpload(files: FileList, event) {
-    this.fileToUpload = files.item(0);
-    if (this.fileToUpload) {
-      this.isLoading = true;
-      console.log(this.fileToUpload);
-      this.partner.uploadPartnerLogo(this.fileToUpload).subscribe(data => {
-        this.partnerLogo = data["url"];
-        // Patch value to imageid in Form.
-        this.partnerForm.patchValue({
-          imageid: data["imageid"]
-        });
-        event.target.value = '';
-        this.isLoading = false;
-      }, error => {
-        console.log(error);
-      })
+  handleUpload(files: FileList, event, type) {
+    
+    if (type === "logo") {
+
+      this.fileToUpload = files.item(0);
+      if (this.fileToUpload) {
+        this.isLoading = true;
+        console.log(this.fileToUpload);
+        this.partner.uploadPartnerLogo(this.fileToUpload).subscribe(data => {
+          this.partnerLogo = data["url"];
+          // Patch value to imageid in Form.
+          this.partnerForm.patchValue({
+            imageid: data["imageid"]
+          });
+          event.target.value = '';
+          this.isLoading = false;
+        }, error => {
+          this.isLoading = false;
+          console.log(error);
+        })
+      }
+
+    } else {
+
+      this.fileToUpload = files.item(0);
+      if (this.fileToUpload) {
+        this.isLoadingBG = true;
+        console.log(this.fileToUpload);
+        this.partner.uploadPartnerBG(this.fileToUpload).subscribe(data => {
+          this.partnerBG = data["url"];
+          // Patch value to imageid in Form.
+          this.partnerForm.patchValue({
+            partnerbg: data["imageid"]
+          });
+          event.target.value = '';
+          this.isLoadingBG = false;
+        }, error => {
+          this.isLoadingBG = false;
+          console.log(error);
+        })
+      }
+
     }
   }
 

@@ -51,7 +51,7 @@ import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard
 import { PartnersComponent } from './pages/partners/partners.component';
 import { PartnerListingComponent, PartnerStatus } from './pages/partners/listing/listing.component';
 import { AddPartnerComponent } from './pages/partners/add-partner/add-partner.component';
-import { EditPartnerComponent } from './pages/partners/edit-partner/edit-partner.component';
+import { EditPartnerComponent, DialogUpdatedPartner, DialogFailPartner } from './pages/partners/edit-partner/edit-partner.component';
 import { ManageMenuComponent, DialogNewCategory, DeleteCategory, NoCategorySelected } from './pages/manage-menu/manage-menu.component';
 
 import { CustomersComponent } from './pages/customers/customers.component';
@@ -108,9 +108,11 @@ import { ItemSelectionComponent } from './pages/manage-menu-v2/item-selection/it
     DeleteItemV2,
     DialogNewCategoryV2, 
     DeleteCategoryV2, 
-    ItemSelectionComponent
+    ItemSelectionComponent,
+    DialogUpdatedPartner,
+    DialogFailPartner
   ],
-  entryComponents: [PartnerStatus, DialogNewCategory, ViewTransaction, DialogNewItemV2, DeleteItemV2, DeleteCategory, DeleteProduct, DialogNewCategoryV2, DeleteCategoryV2, ItemSelectionComponent],
+  entryComponents: [PartnerStatus, DialogNewCategory, ViewTransaction, DialogNewItemV2, DeleteItemV2, DeleteCategory, DeleteProduct, DialogNewCategoryV2, DeleteCategoryV2, ItemSelectionComponent, DialogUpdatedPartner, DialogFailPartner],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

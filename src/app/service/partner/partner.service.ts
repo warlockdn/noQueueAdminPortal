@@ -99,6 +99,20 @@ export class PartnerService {
     })
   }
 
+  uploadPartnerBG(file: File): Observable<Object> {
+    const url = `${ConstantsService.partner}/uploadbgimage`;
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    return this.http.post(url, formData)
+    .map((response) => { 
+      const result = {
+        url: `${ConstantsService.imageserveBG}${response["success"]}`,
+        imageid: response["success"]
+      };
+      return result; 
+    })
+  }
+
   partnersCache(partners) {
     this.partnersList = partners.data;
   }

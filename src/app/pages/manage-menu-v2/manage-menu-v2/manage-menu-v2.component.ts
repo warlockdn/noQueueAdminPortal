@@ -202,9 +202,9 @@ export class ManageMenuV2Component implements OnInit {
       if(result) {
         if (subIndex !== null) {
           // this.menuServiceV2.
-          this.menuServiceV2.deleteSubCollection(result.index, subIndex);
+          this.menuServiceV2.deleteSubCollection(index, subIndex);
         } else {
-          this.menuServiceV2.deleteCollection(result.index);
+          this.menuServiceV2.deleteCollection(index);
         }
         // Bring back to Idle state (none selected).
         if (item.selected) {

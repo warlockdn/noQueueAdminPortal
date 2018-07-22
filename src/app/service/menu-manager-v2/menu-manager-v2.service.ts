@@ -331,7 +331,7 @@ export class MenuManagerV2Service {
             });
   
             subcollection.push({
-              name: collection.name,
+              name: sub.name,
               items: ids
             })
           });

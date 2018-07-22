@@ -69,8 +69,8 @@
         </div>
       </div>
     </div>
-    <div class="col col-md-4" formGroupName="characteristics">
-      <div class="box-card">
+    <div class="col col-md-4">
+      <div class="box-card" formGroupName="characteristics">
         <h3 class="title">Characteristics</h3>
         <mat-form-field>
           <mat-select placeholder="Select Type" formControlName="type" required>
@@ -92,8 +92,8 @@
 
         <label class="d-block">SEATING</label>
         <mat-radio-group name="seating" formControlName="seating" required>
-          <mat-radio-button value="1">Seating Available</mat-radio-button>
-          <mat-radio-button value="2">Seating Not Available</mat-radio-button>
+          <mat-radio-button value="true">Seating Available</mat-radio-button>
+          <mat-radio-button value="false">Seating Not Available</mat-radio-button>
         </mat-radio-group>
 
         <label class="d-block">Cuisine</label>
@@ -107,7 +107,7 @@
         <label class="d-block">Timings</label>
         <mat-form-field>
           <mat-select placeholder="Timings" multiple formControlName="weektiming" required>
-            <mat-option *ngFor="let day of weekdays" value="{{ day }}">{{ day }}</mat-option>
+            <mat-option *ngFor="let day of weekdays" [value]="day">{{ day }}</mat-option>
           </mat-select>
         </mat-form-field>
 
@@ -125,6 +125,19 @@
         </div>
 
       </div>
+      <div class="box-card" formGroupName="taxInfo">
+        <h3 class="title">Tax Details</h3>
+
+        <mat-form-field>
+          <input matInput placeholder="CGST (%)" formControlName="cgst">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="SGST (%)" type="number" formControlName="sgst">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Service Tax" formControlName="servicetax">
+        </mat-form-field>
+      </div>
     </div>
     <div class="col col-md-4">
 
@@ -133,7 +146,15 @@
         <div class="logo mb-3">
           <img class="m-auto" *ngIf="partnerLogo" [src]="partnerLogo" />
         </div>
-        <input type="file" (change)="handleUpload($event.target.files, $event)" accept="image/*" />
+        <input type="file" (change)="handleUpload($event.target.files, $event, 'logo')" accept="image/*" />
+      </div>
+
+      <div [ngClass]="isLoadingBG ? 'box-card loading' : 'box-card'">
+        <h3 class="title">Background</h3>
+        <div class="logo mb-3">
+          <img class="m-auto" *ngIf="partnerBG" [src]="partnerBG" />
+        </div>
+        <input type="file" (change)="handleUpload($event.target.files, $event, 'bg')" accept="image/*" />
       </div>
 
       <div class="box-card">

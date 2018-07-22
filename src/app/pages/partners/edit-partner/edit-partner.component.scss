@@ -4,6 +4,7 @@ app-edit-partner:host {
         border-radius: 4px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
         padding: 30px 30px 35px;
+        margin-bottom: 2rem;
         &.loading:before {
             content: "";
             background: rgba(0, 0, 0, 0.40);
