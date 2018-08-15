@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { CommonService } from './../../service/common/common.service';
+import { CommonService } from '../../service/common/common.service';
 
 @Component({
   selector: 'app-customers',

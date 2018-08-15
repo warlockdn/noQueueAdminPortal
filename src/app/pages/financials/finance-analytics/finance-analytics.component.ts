@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 
-import { CommonService } from './../../../service/common/common.service';
+import { CommonService } from '../../../service/common/common.service';
 
 @Component({
   selector: 'app-finance-analytics',

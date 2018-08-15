@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 
 import { MatIconRegistry } from '@angular/material';
 
-import { AuthService } from './../../service/auth/auth.service';
-import { CommonService } from './../../service/common/common.service'
+import { AuthService } from '../../service/auth/auth.service';
+import { CommonService } from '../../service/common/common.service'
 
 @Component({
   selector: 'app-login',

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { CommonService } from './../../service/common/common.service';
+import { CommonService } from '../../service/common/common.service';
 import { PartnerService } from '../../service/partner/partner.service';
 
 @Component({

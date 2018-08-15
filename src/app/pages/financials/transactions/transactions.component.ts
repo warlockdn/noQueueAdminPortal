@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 
-import { CommonService } from './../../../service/common/common.service';
+import { CommonService } from '../../../service/common/common.service';
 
 @Component({
   selector: 'app-transactions',

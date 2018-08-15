@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { } from '@types/googlemaps';
+import { } from 'googlemaps';
 import { ok } from 'assert';
 
 import { Partner } from '../partner.interface';

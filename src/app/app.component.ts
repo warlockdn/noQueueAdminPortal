@@ -4,7 +4,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 
 import { AuthService } from './service/auth/auth.service';
 import { CommonService } from './service/common/common.service';
-import { ConstantsService } from './../app/service/constants/constants.service';
+import { ConstantsService } from './service/constants/constants.service';
 
 @Component({
   selector: 'app-root',

@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { ParamMap, Router, ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 
-import { CommonService } from './../../service/common/common.service';
+import { CommonService } from '../../service/common/common.service';
 import { MenuManagerService } from '../../service/menu-manager/menu-manager.service';
 
 export interface Category {
