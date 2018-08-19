@@ -1,0 +1,53 @@
+<div class="searchbar float-left">
+    <mat-form-field>
+      <input type="tel" matInput placeholder="Search Coupons" autocomplete="off">
+      <mat-icon matSuffix class="ion-android-search"></mat-icon>
+    </mat-form-field>
+</div>
+
+<div class="float-right">
+  <button mat-icon-button (click)="addNewCoupon()">
+    <mat-icon class="ion-plus-round"></mat-icon>
+  </button>
+</div>
+
+<div class="clearfix"></div>
+
+<div class="coupons-list">
+  <div class="coupon" *ngFor="let coupon of couponProvider.couponList; let index = index" (click)="loadCoupon(coupon)">
+    
+    <div class="float-right">
+      <button mat-icon-button [matMenuTriggerFor]="menu" (click)="couponActions($event)">
+        <mat-icon class="ion-android-more-vertical"></mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item *ngIf="coupon.isActive" (click)="couponStatus(coupon.id, false)">
+          <span>Disable</span>
+        </button>
+        <button mat-menu-item *ngIf="!coupon.isActive" (click)="couponStatus(coupon.id, true)">
+          <span>Enable</span>
+        </button>
+        <button mat-menu-item (click)="deleteCoupon(coupon, index)">
+          <span>Delete</span>
+        </button>
+      </mat-menu>
+    </div>
+
+    <div class="name" [ngClass]="{'active': coupon.isActive}">{{ coupon.discountCode }}</div>
+    <div class="desc">
+      <ul>
+        <li *ngIf="coupon.discountOptions.validFor == 'global'"><strong>Global</strong></li>
+        <li *ngIf="coupon.discountOptions.validFor !== 'global'"><strong>{{ coupon.discountOptions.validFor.name }} ({{ coupon.discountOptions.validFor.partnerID }})</strong></li>
+        <li *ngIf="coupon.discountOptions.type === 'percentage'">{{ coupon.discountOptions.value }}% Off on Entire Order</li>
+        <li *ngIf="coupon.discountOptions.type === 'fixed'">Rs. {{ coupon.discountOptions.value }} Off on Entire Order</li>
+        <li *ngIf="coupon.minimumAmount">Minimum purchase of Rs. {{ coupon.minimumAmount }}</li>
+        <li *ngIf="coupon.limits.limitOne">One per customer</li>
+        <li *ngIf="coupon.limits.isTotalLimit">Total Limit of {{ coupon.limits.totalLimit }}</li>
+        <li *ngIf="!coupon.limits.isTotalLimit">Unlimited Use</li>
+      </ul>
+    </div>
+    <div class="duration">
+      {{ coupon.duration.startDate | date: 'MMM d' }} - {{ coupon.duration.endDate | date: 'MMM d' }}
+    </div>
+  </div>
+</div>

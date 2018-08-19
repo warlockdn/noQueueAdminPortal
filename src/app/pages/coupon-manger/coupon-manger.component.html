@@ -1,0 +1,15 @@
+<div class="container-fluid">
+  <div class="row">
+    
+    <!-- List Coupons -->
+    <div class="col col-md-3 col-sm-12">
+      <app-coupon-list [ngClass]="{ 'isDisabled' : couponProvider.isLoaded }"></app-coupon-list>
+    </div>
+
+    <div class="col col-md-8 col-sm-12">
+      <div class="empty" *ngIf="!couponProvider.isLoaded"></div>
+      <app-coupon-detail *ngIf="couponProvider.isLoaded"></app-coupon-detail>
+    </div>
+
+  </div>
+</div>

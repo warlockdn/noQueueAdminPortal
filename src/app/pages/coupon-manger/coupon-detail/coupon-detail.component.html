@@ -1,0 +1,218 @@
+<div class="row">
+
+  <!-- Play Panel -->
+  <div class="col col-7">
+
+    <form [formGroup]="couponForm" novalidate autocomplete="off">
+
+      <mat-card class="mb-3">
+        <mat-card-header>
+          <mat-card-title>Disount Code</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="row">
+            <div class="col mb-2">
+              <mat-form-field>
+                <input matInput placeholder="Input" placeholder="Discount Code" formControlName="discountCode">
+                <mat-hint align="start">Customers will enter this code at Checkout</mat-hint>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-form-field>
+                <input matInput placeholder="Input" placeholder="Description" formControlName="description">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-form-field>
+                <textarea matInput placeholder="Input" placeholder="Comments" formControlName="comments"></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+  
+      <mat-card class="mb-3" formGroupName="discountOptions">
+        <mat-card-header>
+          <mat-card-title>discountOptions</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="row">
+            <div class="col">
+                <mat-form-field>
+                  <mat-select placeholder="Discount Type" formControlName="type" (change)="toggleValueType()">
+                    <mat-option value="percentage">Percentage</mat-option>
+                    <mat-option value="fixed">Fixed</mat-option>
+                  </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field>
+                <input matInput placeholder="Input" placeholder="Amount or %" formControlName="value" type="number">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-6">
+              <mat-form-field>
+                <mat-select placeholder="Valid For (Global or Partner)" formControlName="validFor" [compareWith]="compareFn">
+                  <mat-option value="global">All</mat-option>
+                  <mat-option [value]="partner" *ngFor="let partner of partnerList">{{ partner.name }} - {{ partner.partnerID }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+  
+      <mat-card class="mb-3" formGroupName="minRequirement">
+        <mat-card-header>
+          <mat-card-title>Minimum requirement</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-radio-group class="radio-full-width mt-3" formControlName="minimum" (change)="toggleMinimum()">
+              <mat-radio-button value="none">None</mat-radio-button>
+              <mat-radio-button value="minimum">Minimum purchase amount</mat-radio-button>
+              <div class="min-amount ml-4" *ngIf="couponForm['controls'].minRequirement['controls'].minimum.value === 'minimum'">
+                  <mat-form-field>
+                    <span matPrefix>Rs. &nbsp;</span>
+                    <input matInput placeholder="Amount" type="number" autocomplete="off" formControlName="minvalue">
+                    <mat-hint align="start">Applies to entire order.</mat-hint>
+                  </mat-form-field>
+              </div>
+            </mat-radio-group>
+        </mat-card-content>
+      </mat-card>
+  
+      <mat-card class="mb-3" formGroupName="limits">
+
+        <mat-card-header>
+          <mat-card-title>Usage limits</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+
+          <div class="mt-3">
+            <mat-checkbox formControlName="isTotalLimit" (change)="toggleLimitValidation()">Limit number of times this discount can be used in total</mat-checkbox>
+            <div class="min-use ml-4 col-4" *ngIf="couponForm['controls'].limits['controls'].isTotalLimit.value === true">
+              <mat-form-field>
+                <input matInput placeholder="Total Use" type="number" autocomplete="off" formControlName="totalLimit">
+              </mat-form-field>
+            </div>
+            <mat-checkbox formControlName="limitOne">Limit to one use per customer</mat-checkbox>
+          </div>
+        </mat-card-content>
+      </mat-card>
+  
+      <mat-card class="mb-3" formGroupName="duration">
+        <mat-card-header>
+          <mat-card-title>Active dates</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="mt-3">
+            <div class="row">
+              <div class="col-6">
+                <mat-form-field>
+                  <input matInput [matDatepicker]="picker" placeholder="Start Date" formControlName="startDate" [min]="minDate" (dateChange)="setEndDate()">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="col-6">
+                <mat-form-field>
+                  <input matInput type="time" atp-time-picker placeholder="Start Time" formControlName="startTime">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <mat-form-field>
+                  <input matInput [matDatepicker]="picker2" placeholder="End Date" formControlName="endDate" [min]="minEndDate">
+                  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                  <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="col-6">
+                <mat-form-field>
+                  <input matInput type="time" atp-time-picker placeholder="End Time" formControlName="endTime">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+    </form>
+
+
+  </div>
+  
+  <!-- Summary Panel -->
+  <div class="col col-4">
+
+    <div class="summary">
+      <mat-card class="mb-3">
+        <mat-card-header>
+          <mat-card-title>Summary</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <span *ngIf="!couponForm.touched || couponForm.valid">No information entered yet.</span>
+
+          <div class="coupon-code" *ngIf="couponForm.controls.discountCode.value"> {{ couponForm.controls.discountCode.value }}</div>
+
+          <ul class="summary-list">
+  
+            <li *ngIf="couponForm['controls'].discountOptions['controls'].type.value === 'percentage' && couponForm['controls'].discountOptions['controls'].value.value">
+              {{ couponForm.controls.discountOptions.controls.value.value }}% off entire order.
+            </li>
+  
+            <li *ngIf="couponForm['controls'].discountOptions['controls'].type.value === 'fixed' && couponForm['controls'].discountOptions['controls'].value.value">
+              Rs. {{ couponForm.controls.discountOptions.controls.value.value }} off entire order.
+            </li>
+  
+            <li *ngIf="couponForm['controls'].discountOptions['controls'].validFor.value === 'global' && couponForm['controls'].discountOptions['controls'].validFor.value">
+              Valid for <strong>{{ couponForm['controls'].discountOptions['controls'].validFor.value | uppercase }}</strong> customers
+            </li>
+
+            <li *ngIf="couponForm['controls'].discountOptions['controls'].validFor.value !== 'global' && couponForm['controls'].discountOptions['controls'].validFor.value">
+              Valid for <strong>{{ couponForm['controls'].discountOptions['controls'].validFor.value.name | uppercase }}</strong> customers
+            </li>
+  
+            <li *ngIf="couponForm['controls'].minRequirement['controls'].minimum.value === true">
+              For minimum order amount of Rs. {{ couponForm['controls'].minRequirement['controls'].minvalue.value }}
+            </li>
+  
+            <li *ngIf="couponForm['controls'].duration['controls'].startDate.value">
+              Active from {{ couponForm['controls'].duration['controls'].startDate.value | date: 'MMM d' }} 
+              <span *ngIf="couponForm['controls'].duration['controls'].startDate.value">
+                {{ couponForm['controls'].duration['controls'].startTime.value }}
+              </span>
+            </li>
+  
+            <li *ngIf="couponForm['controls'].duration['controls'].endDate.value">
+              Active till {{ couponForm['controls'].duration['controls'].endDate.value | date: 'MMM d' }} 
+              <span *ngIf="couponForm['controls'].duration['controls'].endDate.value">
+                {{ couponForm['controls'].duration['controls'].endTime.value }}
+              </span>
+            </li>
+          </ul>
+
+        </mat-card-content>
+      </mat-card>
+
+      <button mat-flat-button class="pt-2 pb-2" (click)="submitCoupon()">Save Coupon</button>
+      <div class="text-center mt-1">
+        <button mat-button (click)="resetCouponForm()">Cancel</button>
+      </div>
+
+      {{ couponForm.value | json }}
+
+    </div>
+    
+  </div>
+
+  <div class="col col-1"></div>
+
+</div>

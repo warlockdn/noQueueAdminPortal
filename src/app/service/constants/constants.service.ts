@@ -3,13 +3,15 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ConstantsService {
 
-  /* public static api = 'http://localhost:3000';
+  public static api = 'http://localhost:3000';
   public static auth = 'http://localhost:3000/auth';
-  public static partner = 'http://localhost:3000/partner'; */
+  public static partner = 'http://localhost:3000/partner';
+  public static coupon = 'http://localhost:3000/coupon';
+  public static couponStatus = 'http://localhost:3000/coupon/status';
 
-  public static api = 'https://api.spazefood.xyz'; 
+  /* public static api = 'https://api.spazefood.xyz'; 
   public static auth = 'https://api.spazefood.xyz/auth';
-  public static partner = 'https://api.spazefood.xyz/partner';
+  public static partner = 'https://api.spazefood.xyz/partner'; */
 
   public static imagecdn = 'https://res.cloudinary.com/ddiiq3bzl/image/upload/logo/'
   public static imageserve = `https://res.cloudinary.com/ddiiq3bzl/image/upload/fl_lossy,f_auto,w_400,h_400,f_auto,c_fill/`
@@ -21,7 +23,7 @@ export class ConstantsService {
 
   constructor() { }
 
-  getToken() {
+  async getToken() {
     return localStorage.getItem('authToken');
   }
 

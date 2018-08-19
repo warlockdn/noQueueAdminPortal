@@ -39,7 +39,8 @@ import {
   MatSlideToggleModule,
   MatSnackBarModule,
   MatFormFieldModule,
-  MatTabsModule
+  MatTabsModule,
+  MatCardModule
  } from '@angular/material';
 
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
@@ -71,12 +72,16 @@ import { AuthService } from './service/auth/auth.service';
 import { CommonService } from './service/common/common.service';
 import { PartnerService } from './service/partner/partner.service';
 import { MenuManagerService } from './service/menu-manager/menu-manager.service';
+import { CouponsService } from './service/coupons/coupons.service';
 
 import { ManageMenuV2Component, DialogNewItemV2, DeleteItemV2, DialogNewCategoryV2, DeleteCategoryV2 } from './pages/manage-menu-v2/manage-menu-v2/manage-menu-v2.component';
 import { ManageCategoryV2Component } from './pages/manage-menu-v2/manage-category-v2/manage-category-v2.component';
 import { ManageItemsV2Component } from './pages/manage-menu-v2/manage-items-v2/manage-items-v2.component';
 import { MenuManagerV2Service } from './service/menu-manager-v2/menu-manager-v2.service';
 import { ItemSelectionComponent } from './pages/manage-menu-v2/item-selection/item-selection.component';
+import { CouponMangerComponent } from './pages/coupon-manger/coupon-manger.component';
+import { CouponListComponent, DialogDeleteCoupon } from './pages/coupon-manger/coupon-list/coupon-list.component';
+import { CouponDetailComponent } from './pages/coupon-manger/coupon-detail/coupon-detail.component';
 
 @NgModule({
   declarations: [
@@ -110,9 +115,13 @@ import { ItemSelectionComponent } from './pages/manage-menu-v2/item-selection/it
     DeleteCategoryV2, 
     ItemSelectionComponent,
     DialogUpdatedPartner,
-    DialogFailPartner
+    DialogFailPartner,
+    CouponMangerComponent,
+    CouponListComponent,
+    CouponDetailComponent,
+    DialogDeleteCoupon
   ],
-  entryComponents: [PartnerStatus, DialogNewCategory, ViewTransaction, DialogNewItemV2, DeleteItemV2, DeleteCategory, DeleteProduct, DialogNewCategoryV2, DeleteCategoryV2, ItemSelectionComponent, DialogUpdatedPartner, DialogFailPartner],
+  entryComponents: [PartnerStatus, DialogNewCategory, ViewTransaction, DialogNewItemV2, DeleteItemV2, DeleteCategory, DeleteProduct, DialogNewCategoryV2, DeleteCategoryV2, ItemSelectionComponent, DialogUpdatedPartner, DialogFailPartner, DialogDeleteCoupon],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -140,7 +149,8 @@ import { ItemSelectionComponent } from './pages/manage-menu-v2/item-selection/it
     MatSnackBarModule,
     MatFormFieldModule,
     MatTabsModule,
-    NgxMatSelectSearchModule
+    NgxMatSelectSearchModule,
+    MatCardModule
   ],
   providers: [
     ConstantsService,
@@ -149,6 +159,7 @@ import { ItemSelectionComponent } from './pages/manage-menu-v2/item-selection/it
     PartnerService,
     MenuManagerService,
     MenuManagerV2Service,
+    CouponsService,
     // { provide: ErrorHandler, useClass: RavenErrorHandler }
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
   ],

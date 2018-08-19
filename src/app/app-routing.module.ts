@@ -12,13 +12,15 @@ import { AddPartnerComponent } from './pages/partners/add-partner/add-partner.co
 import { EditPartnerComponent } from './pages/partners/edit-partner/edit-partner.component';
 import { ManageMenuComponent } from './pages/manage-menu/manage-menu.component';
 
-import { ManageMenuV2Component } from '../app/pages/manage-menu-v2/manage-menu-v2/manage-menu-v2.component';
+import { ManageMenuV2Component } from './pages/manage-menu-v2/manage-menu-v2/manage-menu-v2.component';
 
 import { CustomersComponent } from './pages/customers/customers.component';
 
 import { FinancialsComponent } from './pages/financials/financials.component';
 import { FinanceAnalyticsComponent } from './pages/financials/finance-analytics/finance-analytics.component';
 import { TransactionsComponent } from './pages/financials/transactions/transactions.component';
+
+import { CouponMangerComponent } from './pages/coupon-manger/coupon-manger.component';
 
 import { NotFound404Component } from './pages/not-found-404/not-found-404.component';
 
@@ -37,6 +39,9 @@ const routes: Routes = [
     },
     { path: 'manage-menu', redirectTo: 'dashboard', pathMatch: 'full' },
     { path: 'manage-menu/:partnerid', component: ManageMenuComponent },
+
+    // Coupon Manager
+    { path: 'coupon-manager', component: CouponMangerComponent },
 
     // Manage Menu v2
     { path: 'menu', redirectTo: 'dashboard', pathMatch: 'full' },

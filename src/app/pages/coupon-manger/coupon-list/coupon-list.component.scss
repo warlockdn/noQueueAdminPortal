@@ -1,0 +1,67 @@
+app-coupon-list:host {
+
+    .searchbar {
+        float: left;
+        padding-left: 8px;
+    }
+
+    .coupons-list {
+        max-height: 80vh;
+        height: 80vh;
+        overflow: hidden;
+        &:hover {
+            overflow: auto;
+        }
+        .coupon {
+            width: 98%;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: 0.2s all ease;
+            padding: 8px 10px;
+            cursor: pointer;
+            &:hover {
+                box-shadow: 0 2px 2px #ddd;
+                transform: translateX(0px) translateY(-2px);
+                background: #fff;
+            }
+            .name {
+                font-weight: 700;
+                &.active {
+                    &::after {
+                        content: "";
+                        width: 8px;
+                        height: 8px;
+                        background: #1bff00;
+                        display: inline-block;
+                        border-radius: 50%;
+                        position: relative;
+                        right: -5px;
+                        top: -1px;
+                    }
+                }
+            }
+            .desc {
+                font-size: 12px;
+                ul {
+                    padding: 0;
+                    margin: 0;
+                    li {
+                        display: inline-block;
+                        list-style-type: circle;
+                        &::after {
+                            content: ", ";
+                        }
+                        &:last-child {
+                            content: none
+                        }
+                    }
+                }
+            }
+            .duration {
+                font-size: 12px;
+                font-weight: 600;
+            }
+        }
+    }
+    
+}
