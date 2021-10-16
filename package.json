@@ -30,7 +30,7 @@
     "raven-js": "3.24.0",
     "rxjs": "5.5.6",
     "update": "0.7.4",
-    "zone.js": "0.8.19"
+    "zone.js": "0.11.4"
   },
   "devDependencies": {
     "@angular/cli": "~1.7.2",
